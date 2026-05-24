@@ -32,32 +32,56 @@ function useParallax(speed = 0.05) {
   useEffect(() => {
     const el = ref.current
     if (!el) return
+    const mq = window.matchMedia("(prefers-reduced-motion: reduce)")
+    if (mq.matches) return
     let raf = 0
-    let latest = window.scrollY
+    let inView = false
+    const io = new IntersectionObserver(
+      ([entry]) => { inView = entry.isIntersecting },
+      { rootMargin: "200px 0px 200px 0px" }
+    )
+    io.observe(el)
     const update = () => {
+      raf = 0
+      if (!inView) return
       const rect = el.getBoundingClientRect()
       const vh = window.innerHeight
-      // Only run while near viewport
-      if (rect.bottom < -200 || rect.top > vh + 200) {
-        raf = 0
-        return
-      }
-      const offset = (latest - el.dataset.baseY) * speed
-      el.style.transform = `translateY(${offset}px)`
-      raf = 0
+      const elCenter = rect.top + rect.height / 2
+      const progress = (elCenter - vh / 2) / vh
+      const offset = -progress * vh * speed * 0.5
+      el.style.transform = `translate3d(0, ${offset.toFixed(1)}px, 0)`
     }
-    el.dataset.baseY = window.scrollY
-    const onScroll = () => {
-      latest = window.scrollY
-      if (!raf) raf = requestAnimationFrame(update)
-    }
+    const onScroll = () => { if (!raf) raf = requestAnimationFrame(update) }
+    update()
     window.addEventListener("scroll", onScroll, { passive: true })
+    window.addEventListener("resize", onScroll, { passive: true })
     return () => {
+      io.disconnect()
       window.removeEventListener("scroll", onScroll)
+      window.removeEventListener("resize", onScroll)
       if (raf) cancelAnimationFrame(raf)
+      if (el) el.style.transform = ""
     }
   }, [speed])
   return ref
+}
+
+function useActiveSection(ids) {
+  const [active, setActive] = useState(ids[0])
+  useEffect(() => {
+    const observers = ids.map((id) => {
+      const el = document.getElementById(id)
+      if (!el) return null
+      const io = new IntersectionObserver(
+        ([e]) => { if (e.isIntersecting) setActive(id) },
+        { rootMargin: "-30% 0px -60% 0px" }
+      )
+      io.observe(el)
+      return io
+    })
+    return () => observers.forEach((io) => io?.disconnect())
+  }, [])
+  return active
 }
 
 /* ============================================================
@@ -95,36 +119,129 @@ function Pull({ text, cite }) {
 }
 
 /* ============================================================
+   LOADER
+   ============================================================ */
+
+function Loader() {
+  const [hidden, setHidden] = useState(false)
+  useEffect(() => {
+    const t = setTimeout(() => setHidden(true), 1800)
+    return () => clearTimeout(t)
+  }, [])
+  return (
+    <div className={`loader${hidden ? " hidden" : ""}`} aria-hidden="true">
+      <svg className="loader-svg" viewBox="0 0 300 80"
+           xmlns="http://www.w3.org/2000/svg">
+        {/* M */}
+        <path className="loader-path"
+          style={{"--len":120,"--delay":"0s"}}
+          d="M10,65 L10,15 L35,45 L60,15 L60,65" />
+        {/* L */}
+        <path className="loader-path"
+          style={{"--len":70,"--delay":"0.15s"}}
+          d="M75,15 L75,65 L100,65" />
+        {/* N */}
+        <path className="loader-path"
+          style={{"--len":110,"--delay":"0.3s"}}
+          d="M115,65 L115,15 L145,65 L145,15" />
+        {/* separator */}
+        <path className="loader-path"
+          style={{"--len":30,"--delay":"0.5s"}}
+          d="M162,40 L178,40" />
+        {/* 1 */}
+        <path className="loader-path"
+          style={{"--len":60,"--delay":"0.6s"}}
+          d="M192,20 L200,15 L200,65" />
+        {/* 1 */}
+        <path className="loader-path"
+          style={{"--len":60,"--delay":"0.72s"}}
+          d="M218,20 L226,15 L226,65" />
+        {/* 1 */}
+        <path className="loader-path"
+          style={{"--len":60,"--delay":"0.84s"}}
+          d="M244,20 L252,15 L252,65" />
+      </svg>
+      <div className="loader-bar" />
+      <span className="loader-label">
+        Nhận thức · Thực tiễn · 2025
+      </span>
+    </div>
+  )
+}
+
+/* ============================================================
    NAV
    ============================================================ */
 
-function Nav({ showPrep }) {
+function Nav() {
+  const [menuOpen, setMenuOpen] = useState(false)
+  const sectionIds = ["theory","stats","compare","quiz","ai"]
+  const active = useActiveSection(sectionIds)
+
   const go = (id) => {
+    setMenuOpen(false)
+    document.body.style.overflow = ""
     const el = document.getElementById(id)
     if (el) el.scrollIntoView({ behavior: "smooth", block: "start" })
   }
+
+  useEffect(() => {
+    document.body.style.overflow = menuOpen ? "hidden" : ""
+    return () => { document.body.style.overflow = "" }
+  }, [menuOpen])
+
+  const links = [
+    ["theory","Lý thuyết"],["stats","Thực tiễn"],
+    ["compare","So sánh"],["quiz","Ôn tập"],["ai","Phụ lục AI"],
+  ]
+
   return (
-    <nav className="nav">
-      <div className="nav-left">
-        <a onClick={() => go("theory")} href="#theory">Lý thuyết</a>
-        <a onClick={() => go("stats")} href="#stats">Thực tiễn</a>
-        <a onClick={() => go("compare")} href="#compare">So sánh</a>
-        <a onClick={() => go("quiz")} href="#quiz">Ôn tập</a>
-        <a onClick={() => go("ai")} href="#ai">Phụ lục AI</a>
-        {showPrep && (
-          <a onClick={() => go("rebuttal")} href="#rebuttal">Phản biện</a>
-        )}
+    <>
+      <nav className="nav">
+        <div className="nav-left">
+          {links.map(([id, label]) => (
+            <a key={id} href={`#${id}`}
+               className={active === id ? "is-active" : ""}
+               onClick={(e) => { e.preventDefault(); go(id) }}>
+              {label}
+            </a>
+          ))}
+        </div>
+        <div className="nav-center">
+          <span>20</span>
+          <div className="nav-pill">MLN</div>
+          <span>26</span>
+        </div>
+        <div className="nav-right">
+          <button className="pill-btn">MLN111</button>
+          <div className="arrow-btn">↘</div>
+          <button
+            className="nav-burger"
+            aria-label={menuOpen ? "Đóng menu" : "Mở menu"}
+            aria-expanded={menuOpen}
+            onClick={() => setMenuOpen(o => !o)}
+          >
+            <span /><span /><span />
+          </button>
+        </div>
+      </nav>
+      <div className={`nav-drawer${menuOpen ? " open" : ""}`}
+           onClick={() => setMenuOpen(false)}>
+        <div className="nav-drawer-inner"
+             onClick={(e) => e.stopPropagation()}>
+          {links.map(([id, label], i) => (
+            <a key={id} href={`#${id}`}
+               style={{ transitionDelay: `${i * 60}ms` }}
+               onClick={(e) => { e.preventDefault(); go(id) }}>
+              <span className="drawer-num">
+                {String(i+1).padStart(2,"0")}
+              </span>
+              <span>{label}</span>
+            </a>
+          ))}
+        </div>
       </div>
-      <div className="nav-center">
-        <span>20</span>
-        <span className="nav-pill">MLN</span>
-        <span>26</span>
-      </div>
-      <div className="nav-right">
-        <span className="pill-btn">MLN111</span>
-        <span className="arrow-btn" aria-hidden="true">↘</span>
-      </div>
-    </nav>
+    </>
   )
 }
 
@@ -134,19 +251,29 @@ function Nav({ showPrep }) {
 
 function Hero() {
   const floatRef = useParallax(0.06)
+  const bookRef = useParallax(0.09)
   const go = (id) => {
     const el = document.getElementById(id)
     if (el) el.scrollIntoView({ behavior: "smooth", block: "start" })
   }
   return (
     <header className="hero">
-      <span className="hero-watermark" aria-hidden="true">NHẬN THỨC</span>
-
-      <div className="hero-float" ref={floatRef}>
-        <img src="/img/socrates.jpg" alt="" />
+      <div style={{ position: "absolute", inset: 0, overflow: "hidden", zIndex: 0, pointerEvents: "none" }}>
+        <img src="/img/manuscript-bg.jpg" alt="" aria-hidden="true" style={{ width: "100%", height: "100%", objectFit: "cover", opacity: 0.06, mixBlendMode: "screen", filter: "grayscale(1)" }} />
       </div>
 
-      <div className="hero-content">
+      <span className="hero-watermark" aria-hidden="true">NHẬN THỨC</span>
+
+      <div ref={floatRef} style={{ position: "absolute", right: "var(--space-section-h)", top: "50%", transform: "translateY(-50%)", width: "clamp(200px, 22vw, 300px)", height: "clamp(260px, 28vw, 390px)", overflow: "hidden", zIndex: 1 }}>
+        <img src="/img/socrates.jpg" alt="" style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center top", filter: "grayscale(0.5) brightness(0.7)" }} />
+        <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to bottom, transparent 40%, rgba(11,10,8,0.6) 100%)" }} />
+      </div>
+
+      <div ref={bookRef} style={{ position: "absolute", left: "var(--space-section-h)", bottom: "12%", width: "clamp(130px, 14vw, 180px)", height: "clamp(85px, 9vw, 120px)", overflow: "hidden", zIndex: 1 }}>
+        <img src="/img/book-notes.jpg" alt="" style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center top" }} />
+      </div>
+
+      <div className="hero-content" style={{ position: "relative", zIndex: 2, paddingBottom: "4rem" }}>
         <Rev>
           <Label style={{ color: "var(--color-accent)", opacity: 0.8 }}>
             (MLN111 · Chủ nghĩa Duy vật Biện chứng · 2026)
@@ -156,16 +283,16 @@ function Hero() {
           <h1 className="hero-h1">
             Nhận thức
             <br />
-            <em>và Thực tiễn</em>
+            <i>và Thực tiễn</i>
           </h1>
         </Rev>
-        <Rev delay={2}>
-          <button className="hero-scroll" onClick={() => go("theory")}>
-            <span className="arrow-btn">↓</span>
-            <Label>Cuộn để khám phá</Label>
-          </button>
-        </Rev>
       </div>
+
+      <Rev delay={2} style={{ position: "absolute", bottom: "2rem", left: "var(--space-section-h)", zIndex: 2 }}>
+        <button className="hero-scroll" onClick={() => go("theory")}>
+          Scroll ↓
+        </button>
+      </Rev>
     </header>
   )
 }
@@ -174,7 +301,7 @@ function Hero() {
    CQ SECTION
    ============================================================ */
 
-function CQ() {
+function CQSection() {
   return (
     <section className="section-border-b">
       <Rev>
@@ -184,7 +311,7 @@ function CQ() {
         <h2 className="h2" style={{ marginTop: "var(--space-stack-md)" }}>
           Cứ học giỏi<br />
           thì sẽ thành công<br />
-          <em>trong sự nghiệp?</em>
+          <i>trong sự nghiệp?</i>
         </h2>
       </Rev>
       <Rev delay={2}>
@@ -202,7 +329,7 @@ function CQ() {
    THEORY SECTION
    ============================================================ */
 
-function Theory() {
+function TheorySection() {
   const floatRef = useParallax(0.05)
   return (
     <section id="theory" className="section-narrow">
@@ -211,19 +338,19 @@ function Theory() {
       </Rev>
       <Rev delay={1}>
         <h2 className="h2" style={{ marginTop: "var(--space-stack-md)", marginBottom: "var(--space-stack-lg)" }}>
-          Thực tiễn <Dash /> <em>ba vai trò cốt lõi</em>
+          Thực tiễn <Dash /> <i>ba vai trò cốt lõi</i>
         </h2>
       </Rev>
 
       <div className="theory-float" ref={floatRef}>
-        <img src="/img/bookshelf.jpg" alt="" />
+        <img src="/img/bookshelf.jpg" alt="" loading="lazy" decoding="async" />
       </div>
 
       <Rev delay={2}>
         <div className="point">
           <span className="point-num">01 ──────</span>
           <h3 className="point-h">
-            Cơ sở <em>hình thành</em>
+            Cơ sở <i>hình thành</i>
           </h3>
           <p className="point-body">
             Con người không thể nhận thức thế giới bằng suy nghĩ thuần túy
@@ -237,7 +364,7 @@ function Theory() {
         <div className="point">
           <span className="point-num">02 ──────</span>
           <h3 className="point-h">
-            Tiêu chuẩn <em>của chân lý</em>
+            Tiêu chuẩn <i>của chân lý</i>
           </h3>
           <p className="point-body">
             Nhận thức dù logic đến đâu vẫn cần kiểm nghiệm qua thực tế.
@@ -251,7 +378,7 @@ function Theory() {
         <div className="point">
           <span className="point-num">03 ──────</span>
           <h3 className="point-h">
-            Mục đích <em>cuối cùng</em>
+            Mục đích <i>cuối cùng</i>
           </h3>
           <p className="point-body">
             Con người nhận thức không chỉ để "biết" mà để cải tạo hiện
@@ -277,7 +404,7 @@ function Theory() {
    STATS SECTION
    ============================================================ */
 
-function Stats() {
+function StatsSection() {
   const bgRef = useParallax(0.04)
   return (
     <section
@@ -286,7 +413,7 @@ function Stats() {
       style={{ overflow: "hidden" }}
     >
       <div className="stats-bg" ref={bgRef}>
-        <img src="/img/gears.jpg" alt="" />
+        <img src="/img/gears.jpg" alt="" loading="lazy" decoding="async" />
       </div>
 
       <div className="stats-inner">
@@ -334,6 +461,11 @@ function Stats() {
 
         <hr className="hr-line" />
 
+        <div style={{ width: "100%", height: "clamp(200px, 25vw, 320px)", overflow: "hidden", margin: "2rem 0", position: "relative" }}>
+          <img src="/img/student-work.jpg" alt="" loading="lazy" decoding="async" style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center 30%", filter: "grayscale(0.7) contrast(1.1) brightness(0.8)" }} />
+          <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to bottom, rgba(11,10,8,0.3) 0%, rgba(11,10,8,0.7) 100%)" }} />
+        </div>
+
         <Rev delay={1}>
           <div className="stat-row">
             <span className="stat-num-quote">
@@ -364,10 +496,10 @@ function Stats() {
    TRIPTYCH
    ============================================================ */
 
-function Triptych() {
+function TriptychDivider() {
   return (
     <section className="triptych">
-      <img src="/img/triptych.jpg" alt="" />
+      <img src="/img/triptych.jpg" alt="" loading="lazy" decoding="async" />
       <div className="triptych-overlay" />
     </section>
   )
@@ -377,7 +509,7 @@ function Triptych() {
    COMPARE
    ============================================================ */
 
-function Compare() {
+function CompareSection() {
   const rows = [
     {
       tag: "Nhận thức Đúng",
@@ -402,7 +534,7 @@ function Compare() {
       </Rev>
       <Rev delay={1}>
         <h2 className="h2" style={{ marginTop: "var(--space-stack-md)" }}>
-          Nhận thức <Dash /> <em>Đúng · Đủ · Hiệu quả</em>
+          Nhận thức <Dash /> <i>Đúng · Đủ · Hiệu quả</i>
         </h2>
       </Rev>
 
@@ -412,6 +544,11 @@ function Compare() {
           <span className="compare-h-right">Môi trường nghề nghiệp</span>
         </div>
       </Rev>
+
+      <div style={{ width: "100%", height: "clamp(160px, 18vw, 240px)", overflow: "hidden", marginBottom: "0", position: "relative" }}>
+        <img src="/img/theory-practice.jpg" alt="" loading="lazy" decoding="async" style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center 40%", filter: "grayscale(0.4) contrast(1.1) brightness(0.75)" }} />
+        <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to right, rgba(11,10,8,0.85) 0%, rgba(11,10,8,0.2) 60%, rgba(11,10,8,0.85) 100%)" }} />
+      </div>
 
       {rows.map((r, i) => (
         <Rev delay={i + 1} key={r.tag}>
@@ -442,62 +579,62 @@ function Compare() {
 const QUIZ = [
   {
     q: "Theo triết học Mác-Lênin, thực tiễn giữ vai trò gì đối với nhận thức?",
-    options: [
+    opts: [
       "Thực tiễn chỉ là kết quả của nhận thức",
       "Thực tiễn là cơ sở, động lực, mục đích và tiêu chuẩn của chân lý",
       "Nhận thức quyết định và chi phối thực tiễn hoàn toàn",
       "Thực tiễn và nhận thức hoàn toàn độc lập nhau",
     ],
-    correct: 1,
-    explain:
+    ans: 1,
+    ex:
       "Triết học Mác-Lênin: thực tiễn vừa là cơ sở hình thành nhận thức, vừa là động lực thúc đẩy, mục đích và tiêu chuẩn kiểm nghiệm chân lý.",
   },
   {
     q: "Điều gì chủ yếu khiến người 'học xuất sắc' vẫn gặp khó khăn trong doanh nghiệp?",
-    options: [
+    opts: [
       "Thiếu bằng cấp phù hợp",
       "Thiếu kỹ năng thực hành, kỹ năng mềm và khả năng ứng biến",
       "Kiến thức chuyên môn chưa đủ sâu",
       "Chưa có đủ kinh nghiệm quản lý",
     ],
-    correct: 1,
-    explain:
+    ans: 1,
+    ex:
       "Doanh nghiệp đòi hỏi không chỉ lý thuyết mà còn khả năng hành động, giao tiếp, hợp tác — không đo được bằng điểm số.",
   },
   {
     q: "Ph. Ăngghen khẳng định chân lý được xác định bằng cách nào?",
-    options: [
+    opts: [
       "Bằng suy luận logic thuần túy",
       "Bằng đồng thuận của đa số nhà khoa học",
       "Bằng kết quả hoạt động thực tiễn — tự làm ra hiện tượng đó",
       "Bằng quyền uy của các triết gia kinh điển",
     ],
-    correct: 2,
-    explain:
+    ans: 2,
+    ex:
       "Ăngghen: nếu tự làm ra hiện tượng thì không còn 'vật tự nó không thể nắm được' của Cantơ nữa.",
   },
   {
     q: "Trong môi trường nghề nghiệp, 'nhận thức đủ' bao gồm gì?",
-    options: [
+    opts: [
       "Chỉ cần kiến thức chuyên ngành sâu",
       "Chỉ cần GPA cao và bằng cấp trường top",
       "Chuyên ngành + kỹ năng mềm + kinh nghiệm + thích nghi",
       "Chỉ cần kỹ năng giao tiếp và networking",
     ],
-    correct: 2,
-    explain:
+    ans: 2,
+    ex:
       "Nhận thức đủ trong nghề nghiệp còn gồm kỹ năng mềm, kinh nghiệm, hợp tác và quản lý cảm xúc.",
   },
   {
     q: "Mối quan hệ giữa kiến thức học thuật và khả năng hành động là gì?",
-    options: [
+    opts: [
       "Kiến thức học thuật là yếu tố quyết định",
       "Khả năng hành động quan trọng hơn, kiến thức không cần",
       "Hai yếu tố bổ sung — kiến thức nền tảng, hành động tạo giá trị",
       "Hai yếu tố hoàn toàn độc lập",
     ],
-    correct: 2,
-    explain:
+    ans: 2,
+    ex:
       "Kiến thức cung cấp nền tảng tư duy. Hành động biến tri thức thành giá trị thực tiễn. Tách rời cả hai đều thất bại.",
   },
 ]
@@ -507,107 +644,239 @@ function Quiz() {
   const [sel, setSel] = useState(null)
   const [ans, setAns] = useState([])
   const [done, setDone] = useState(false)
-
   const cur = QUIZ[q]
-  const progress = done ? 100 : (q / QUIZ.length) * 100
+  const score = ans.filter((a,i) => a === QUIZ[i].ans).length
 
-  const pick = (i) => {
-    if (sel !== null) return
-    setSel(i)
-  }
+  const pick = (i) => { if (sel !== null) return; setSel(i) }
 
   const next = () => {
-    const newAns = [...ans, sel === cur.correct]
-    setAns(newAns)
-    setSel(null)
+    const newAns = [...ans, sel]
     if (q + 1 >= QUIZ.length) {
-      setDone(true)
+      setAns(newAns); setDone(true)
     } else {
-      setQ(q + 1)
+      setAns(newAns); setSel(null); setQ(q + 1)
     }
   }
 
-  const restart = () => {
-    setQ(0)
-    setSel(null)
-    setAns([])
-    setDone(false)
+  const back = () => {
+    if (q === 0) return
+    const newAns = ans.slice(0, -1)
+    setAns(newAns); setSel(null); setQ(q - 1)
   }
 
-  const score = ans.filter(Boolean).length
+  const restart = () => {
+    setQ(0); setSel(null); setAns([]); setDone(false)
+  }
+
+  useEffect(() => {
+    if (done) return
+    const onKey = (e) => {
+      if (e.target.tagName === "INPUT") return
+      const k = e.key.toLowerCase()
+      if (["a","b","c","d"].includes(k) && sel === null) {
+        const idx = k.charCodeAt(0) - 97
+        if (idx < cur.opts.length) pick(idx)
+      } else if (e.key === "Enter" && sel !== null) {
+        next()
+      } else if (e.key === "ArrowLeft" && q > 0 && sel !== null) {
+        back()
+      }
+    }
+    window.addEventListener("keydown", onKey)
+    return () => window.removeEventListener("keydown", onKey)
+  }, [q, sel, done])
+
+  const pct = done ? 100 : (q / QUIZ.length) * 100
+
+  const optColor = (i) => {
+    if (sel === null) return "var(--color-text-muted)"
+    if (i === QUIZ[q].ans) return "#90B880"
+    if (i === sel) return "#B88080"
+    return "var(--color-text-label)"
+  }
+  const optBorder = (i) => {
+    if (sel === null) return "var(--color-line)"
+    if (i === QUIZ[q].ans) return "#90B880"
+    if (i === sel) return "#B88080"
+    return "var(--color-line)"
+  }
 
   return (
-    <section id="quiz" className="section-border-t">
-      <div className="quiz-wrap">
-        <Rev>
-          <Label>(Phần 04 · Ôn tập tương tác · Tiêu chí 3)</Label>
-        </Rev>
-        <Rev delay={1}>
-          <h2 className="h2" style={{ marginTop: "var(--space-stack-md)" }}>
-            Kiểm tra <Dash /> <em>hiểu bài</em>
+    <section id="quiz" style={{
+      padding:"var(--space-section-v) var(--space-section-h)",
+      borderTop:"1px solid var(--color-line)",
+    }}>
+      <div style={{ maxWidth: 640 }}>
+        <Rev><Label>(Phần 04 · Ôn tập tương tác · Tiêu chí 3)</Label></Rev>
+        <Rev delay={0.1}>
+          <h2 style={{
+            fontFamily:"var(--font-display)",
+            fontSize:"var(--type-h2)",
+            fontWeight:"var(--weight-display)",
+            lineHeight:"var(--leading-display)",
+            letterSpacing:"var(--tracking-h2)",
+            marginBottom:"var(--space-stack-lg)",
+          }}>
+            Kiểm tra <Dash /> <i style={{fontStyle:"italic"}}>hiểu bài</i>
           </h2>
         </Rev>
 
-        <div className="progress">
-          <span className="progress-fill" style={{ width: `${progress}%` }} />
+        <div role="progressbar" aria-valuenow={Math.round(pct)}
+             aria-valuemin={0} aria-valuemax={100}
+             aria-label={`Tiến trình: câu ${q+1} trên ${QUIZ.length}`}
+             style={{ height:1, background:"var(--color-line)",
+                      marginBottom:"2rem", position:"relative" }}>
+          <div className="progress-fill" style={{
+            position:"absolute", top:0, left:0, height:1,
+            background:"var(--color-accent)",
+            width:`${pct}%`,
+            transition:"width 0.5s var(--ease-out)",
+          }} />
         </div>
 
-        {!done ? (
-          <Rev key={q}>
-            <p className="quiz-q">
-              <span className="label" style={{ display: "block", marginBottom: "0.75rem", color: "var(--color-text-label)" }}>
-                Câu {q + 1} / {QUIZ.length}
-              </span>
-              {cur.q}
-            </p>
-
-            {cur.options.map((opt, i) => {
-              let cls = "quiz-opt"
-              if (sel !== null) {
-                if (i === cur.correct) cls += " quiz-opt-correct"
-                else if (i === sel) cls += " quiz-opt-wrong"
-                else cls += " quiz-opt-dim"
-              }
-              return (
-                <button
-                  key={i}
-                  className={cls}
-                  disabled={sel !== null}
-                  onClick={() => pick(i)}
-                >
-                  {String.fromCharCode(65 + i)}. {opt}
-                </button>
-              )
-            })}
-
-            {sel !== null && (
-              <>
-                <p className="quiz-explain">{cur.explain}</p>
-                <button className="quiz-next" onClick={next}>
-                  {q + 1 >= QUIZ.length ? "Xem kết quả →" : "Câu tiếp →"}
-                </button>
-              </>
-            )}
-          </Rev>
-        ) : (
+        {done ? (
           <Rev>
-            <div className="quiz-result">
+            <div style={{ textAlign:"center", padding:"3rem 0" }}>
               <Label>(Kết quả)</Label>
-              <div className="quiz-score" style={{ marginTop: "1rem" }}>
-                {score}/{QUIZ.length}
+              <div style={{
+                fontFamily:"var(--font-display)",
+                fontSize:"clamp(4rem,10vw,8rem)",
+                fontWeight:"var(--weight-display)",
+                lineHeight:0.88, letterSpacing:"var(--tracking-display)",
+                marginBottom:"1rem",
+              }}>
+                {score}
+                <span style={{ fontSize:"40%",
+                               color:"var(--color-text-muted)" }}>
+                  /{QUIZ.length}
+                </span>
               </div>
-              <p className="quiz-score-meta">
+              <p style={{
+                fontFamily:"var(--font-ui)",
+                color:"var(--color-text-muted)",
+                fontSize:"var(--type-body)",
+                marginBottom:"2rem",
+              }}>
                 {score === QUIZ.length
                   ? "Hoàn hảo — bạn đã nắm vững mối quan hệ biện chứng."
                   : score >= 3
-                  ? "Khá tốt — ôn lại các phần chưa chắc để chuẩn bị phản biện."
-                  : "Cần ôn lại — quay về phần Lý thuyết trước khi thi."}
+                  ? "Khá tốt — ôn lại các phần chưa chắc."
+                  : "Cần ôn lại — quay về phần Lý thuyết."}
               </p>
-              <button className="quiz-next" onClick={restart} style={{ marginTop: "2rem" }}>
-                Làm lại ↻
-              </button>
+              <button onClick={restart} style={{
+                fontFamily:"var(--font-ui)",
+                fontSize:"var(--type-label)",
+                letterSpacing:"var(--tracking-label)",
+                textTransform:"uppercase",
+                background:"none",
+                border:"1px solid var(--color-line-strong)",
+                color:"var(--color-text)",
+                padding:"var(--pill-padding)",
+                cursor:"pointer",
+              }}>Làm lại ↻</button>
             </div>
           </Rev>
+        ) : (
+          <div key={q} className="quiz-fade">
+            <div style={{
+              display:"flex", justifyContent:"space-between",
+              fontFamily:"var(--font-ui)",
+              fontSize:"var(--type-label)",
+              letterSpacing:"var(--tracking-label)",
+              textTransform:"uppercase",
+              color:"var(--color-text-label)",
+              marginBottom:"1.5rem",
+            }}>
+              <span>Câu {q+1} / {QUIZ.length}</span>
+              <span style={{ color:"var(--color-accent)" }}>
+                {score} đúng
+              </span>
+            </div>
+
+            <p style={{
+              fontFamily:"var(--font-display)",
+              fontSize:"clamp(1.1rem,2.2vw,1.5rem)",
+              fontWeight:"var(--weight-display)",
+              lineHeight:"var(--leading-tight)",
+              letterSpacing:"-0.01em",
+              marginBottom:"1.75rem",
+            }}>{cur.q}</p>
+
+            <div>
+              {cur.opts.map((opt,i) => (
+                <button key={i} onClick={() => pick(i)}
+                  aria-pressed={sel === i}
+                  disabled={sel !== null}
+                  style={{
+                    padding:"0.875rem 0", width:"100%",
+                    border:"none",
+                    borderBottom:`1px solid ${optBorder(i)}`,
+                    background:"none", color:optColor(i),
+                    cursor:sel !== null ? "default" : "pointer",
+                    fontFamily:"var(--font-ui)",
+                    fontSize:"var(--type-body)",
+                    lineHeight:"var(--leading-body)",
+                    textAlign:"left",
+                    display:"flex", gap:"1rem",
+                    opacity: sel !== null
+                      && i !== QUIZ[q].ans
+                      && i !== sel ? 0.35 : 1,
+                    transition:"color 200ms, border-color 200ms",
+                  }}>
+                  <kbd className="quiz-kbd">
+                    {String.fromCharCode(65+i)}
+                  </kbd>
+                  <span>{opt}</span>
+                </button>
+              ))}
+            </div>
+
+            {sel !== null && (
+              <>
+                <p style={{
+                  fontFamily:"var(--font-ui)",
+                  fontSize:"var(--type-body)",
+                  color:"var(--color-text-muted)",
+                  fontStyle:"italic",
+                  lineHeight:"var(--leading-body)",
+                  padding:"1.25rem 0",
+                  borderTop:"1px solid var(--color-line)",
+                  marginBottom:"1.5rem",
+                }}>{cur.ex}</p>
+                <div style={{ display:"flex", gap:"1rem" }}>
+                  {q > 0 && (
+                    <button onClick={back} style={{
+                      fontFamily:"var(--font-ui)",
+                      fontSize:"var(--type-label)",
+                      letterSpacing:"var(--tracking-label)",
+                      textTransform:"uppercase",
+                      background:"none", border:"none",
+                      color:"var(--color-text-label)",
+                      cursor:"pointer", opacity:0.6,
+                    }}>← Câu trước</button>
+                  )}
+                  <button onClick={next} autoFocus style={{
+                    fontFamily:"var(--font-ui)",
+                    fontSize:"var(--type-label)",
+                    letterSpacing:"var(--tracking-label)",
+                    textTransform:"uppercase",
+                    background:"none",
+                    border:"1px solid var(--color-line-strong)",
+                    color:"var(--color-text)",
+                    padding:"var(--pill-padding)",
+                    cursor:"pointer",
+                  }}>
+                    {q+1 >= QUIZ.length
+                      ? "Xem kết quả →"
+                      : "Tiếp theo → (Enter)"}
+                  </button>
+                </div>
+              </>
+            )}
+            <p className="quiz-hint">
+              Mẹo: bấm A · B · C · D để chọn
+            </p>
+          </div>
         )}
       </div>
     </section>
@@ -618,7 +887,7 @@ function Quiz() {
    AI USAGE
    ============================================================ */
 
-function AIUsage() {
+function AISection() {
   const rows = [
     {
       tool: "Claude",
@@ -683,7 +952,7 @@ function AIUsage() {
       </Rev>
       <Rev delay={1}>
         <h2 className="h2" style={{ marginTop: "var(--space-stack-md)" }}>
-          AI Usage <Dash /> <em>có trách nhiệm</em>
+          AI Usage <Dash /> <i>có trách nhiệm</i>
         </h2>
       </Rev>
 
@@ -786,7 +1055,7 @@ function Rebuttal() {
   const [open, setOpen] = useState(REBUTTAL.map(() => false))
 
   const toggle = (i) => {
-    setOpen(open.map((v, idx) => (idx === i ? !v : v)))
+    setOpen(prev => prev.map((v, idx) => idx === i ? !v : v))
   }
 
   return (
@@ -796,7 +1065,7 @@ function Rebuttal() {
       </Rev>
       <Rev delay={1}>
         <h2 className="h2" style={{ marginTop: "var(--space-stack-md)" }}>
-          10 câu hỏi <Dash /> <em>có thể bị hỏi</em>
+          10 câu hỏi <Dash /> <i>có thể bị hỏi</i>
         </h2>
       </Rev>
 
@@ -814,7 +1083,12 @@ function Rebuttal() {
               key={i}
               className={`acc-item ${item.warn ? "acc-item-warn" : ""}`}
             >
-              <button className="acc-head" onClick={() => toggle(i)}>
+              <button
+                className="acc-head"
+                onClick={() => toggle(i)}
+                aria-expanded={open[i]}
+                aria-controls={`acc-panel-${i}`}
+              >
                 <div style={{ flex: 1 }}>
                   <span className="acc-num">
                     Câu {String(i + 1).padStart(2, "0")} {item.warn ? "⚠" : ""}
@@ -823,7 +1097,11 @@ function Rebuttal() {
                 </div>
                 <span className="acc-icon">{open[i] ? "−" : "+"}</span>
               </button>
-              <div className={`acc-body ${open[i] ? "open" : ""}`}>
+              <div
+                id={`acc-panel-${i}`}
+                aria-hidden={!open[i]}
+                className={`acc-body ${open[i] ? "open" : ""}`}
+              >
                 <div className="acc-body-inner">{item.a}</div>
               </div>
             </div>
@@ -860,23 +1138,26 @@ function Footer() {
    ============================================================ */
 
 export default function App() {
-  const showPrep =
-    typeof window !== "undefined" &&
-    new URLSearchParams(window.location.search).get("prep") === "true"
+  const showPrep = new URLSearchParams(
+    window.location.search
+  ).get("prep") === "true"
 
   return (
-    <div id="app-root">
-      <Nav showPrep={showPrep} />
-      <Hero />
-      <CQ />
-      <Theory />
-      <Stats />
-      <Triptych />
-      <Compare />
-      <Quiz />
-      {showPrep && <Rebuttal />}
-      <AIUsage />
-      <Footer />
-    </div>
+    <>
+      <Loader />
+      <div id="app-root">
+        <Nav />
+        <Hero />
+        <CQSection />
+        <TheorySection />
+        <StatsSection />
+        <TriptychDivider />
+        <CompareSection />
+        <Quiz />
+        {showPrep && <Rebuttal />}
+        <AISection />
+        <Footer />
+      </div>
+    </>
   )
 }
