@@ -1,0 +1,21 @@
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: #0C0906;
+  color: #EDE0C4;
+  font-family: 'Crimson Pro', 'Georgia', serif;
+  line-height: 1.8;
+  min-height: 100vh;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+button {
+  font-family: inherit;
+}
