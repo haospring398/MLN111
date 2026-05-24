@@ -1158,3 +1158,139 @@ section {
 @media (prefers-reduced-motion: reduce) {
   .loader { display: none; }
 }
+
+/* ============ SECTION MARGIN (marginalia) ============ */
+.section-with-margin {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 220px;
+  gap: clamp(2rem, 6vw, 6rem);
+  align-items: start;
+}
+.section-with-margin > .section-main {
+  min-width: 0;
+}
+
+.section-margin {
+  border-left: 1px solid var(--color-line);
+  padding-left: 1.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+  position: sticky;
+  top: calc(var(--nav-height) + 3rem);
+}
+.margin-num {
+  font-family: var(--font-ui);
+  font-size: var(--type-label);
+  letter-spacing: var(--tracking-label);
+  color: var(--color-text-label);
+  text-transform: uppercase;
+}
+.margin-vertical {
+  font-family: var(--font-ui);
+  font-size: var(--type-label);
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  align-self: flex-start;
+  padding: 0.5rem 0;
+}
+.margin-note {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 0.95rem;
+  line-height: 1.55;
+  color: var(--color-text-muted);
+}
+.margin-cite {
+  display: block;
+  margin-top: 0.875rem;
+  font-family: var(--font-ui);
+  font-style: normal;
+  font-size: var(--type-label);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--color-text-label);
+}
+
+@media (max-width: 1024px) {
+  .section-with-margin {
+    grid-template-columns: 1fr;
+  }
+  .section-margin {
+    display: none;
+  }
+}
+
+/* ============ CQ SECTION (với ảnh student-library) ============ */
+.cq-section {
+  display: grid;
+  grid-template-columns: 1fr clamp(280px, 32vw, 420px);
+  gap: clamp(2rem, 6vw, 6rem);
+  align-items: center;
+}
+.cq-image {
+  position: relative;
+  aspect-ratio: 3/4;
+  overflow: hidden;
+}
+.cq-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: grayscale(0.5) brightness(0.75) contrast(1.1);
+}
+.cq-image::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to right,
+    rgba(11, 10, 8, 0.4) 0%,
+    transparent 25%,
+    transparent 75%,
+    rgba(11, 10, 8, 0.5) 100%
+  );
+  pointer-events: none;
+}
+@media (max-width: 900px) {
+  .cq-section {
+    grid-template-columns: 1fr;
+  }
+  .cq-image {
+    aspect-ratio: 4/3;
+    max-height: 50vh;
+    margin-top: 2rem;
+  }
+}
+
+/* ============ THEORY — ảnh thứ hai (hands-book) ============ */
+.theory-float-bottom {
+  width: clamp(220px, 26vw, 340px);
+  height: clamp(280px, 33vw, 430px);
+  margin: 0 0 2rem 3rem;
+  overflow: hidden;
+  float: right;
+  filter: grayscale(0.6) contrast(1.05) brightness(0.85);
+}
+.theory-float-bottom img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+@media (max-width: 768px) {
+  .theory-float-bottom {
+    float: none;
+    margin: 2rem 0;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4/5;
+  }
+}
+
+/* ============ AI section — giữ nội dung trong max-width ============ */
+.ai-main {
+  max-width: 960px;
+}

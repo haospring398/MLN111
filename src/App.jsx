@@ -118,6 +118,21 @@ function Pull({ text, cite }) {
   )
 }
 
+function SectionMargin({ num, vertical, note, noteCite }) {
+  return (
+    <aside className="section-margin" aria-hidden="true">
+      <span className="margin-num">{num}</span>
+      <span className="margin-vertical">{vertical}</span>
+      {note && (
+        <p className="margin-note">
+          <i>{note}</i>
+          {noteCite && <span className="margin-cite">{noteCite}</span>}
+        </p>
+      )}
+    </aside>
+  )
+}
+
 /* ============================================================
    LOADER
    ============================================================ */
@@ -303,23 +318,33 @@ function Hero() {
 
 function CQSection() {
   return (
-    <section className="section-border-b">
-      <Rev>
-        <Label>(Câu hỏi chủ đề)</Label>
-      </Rev>
-      <Rev delay={1}>
-        <h2 className="h2" style={{ marginTop: "var(--space-stack-md)" }}>
-          Cứ học giỏi<br />
-          thì sẽ thành công<br />
-          <i>trong sự nghiệp?</i>
-        </h2>
-      </Rev>
-      <Rev delay={2}>
-        <p className="cq-body">
-          Nhận thức này đúng chưa đủ ở chỗ nào? Thực tiễn kiểm nghiệm điều
-          gì mà học đường không thể dạy? Mối quan hệ biện chứng được Triết
-          học Mác–Lênin lý giải ra sao?
-        </p>
+    <section className="section-border-b cq-section">
+      <div className="cq-main">
+        <Rev>
+          <Label>(Câu hỏi chủ đề)</Label>
+        </Rev>
+        <Rev delay={1}>
+          <h2 className="h2" style={{ marginTop: "var(--space-stack-md)" }}>
+            Cứ học giỏi<br />
+            thì sẽ thành công<br />
+            <i>trong sự nghiệp?</i>
+          </h2>
+        </Rev>
+        <Rev delay={2}>
+          <p className="cq-body">
+            Nhận thức này đúng chưa đủ ở chỗ nào? Thực tiễn kiểm nghiệm điều
+            gì mà học đường không thể dạy? Mối quan hệ biện chứng được Triết
+            học Mác–Lênin lý giải ra sao?
+          </p>
+        </Rev>
+      </div>
+      <Rev delay={1} className="cq-image">
+        <img
+          src="/img/student-library.jpg"
+          alt=""
+          loading="lazy"
+          decoding="async"
+        />
       </Rev>
     </section>
   )
@@ -385,6 +410,17 @@ function TheorySection() {
             thực. Tri thức chỉ có ý nghĩa khi được vận dụng vào đời sống
             thực tế.
           </p>
+        </div>
+      </Rev>
+
+      <Rev delay={2}>
+        <div className="theory-float-bottom">
+          <img
+            src="/img/hands-book.jpg"
+            alt=""
+            loading="lazy"
+            decoding="async"
+          />
         </div>
       </Rev>
 
@@ -702,10 +738,8 @@ function Quiz() {
   }
 
   return (
-    <section id="quiz" style={{
-      padding:"var(--space-section-v) var(--space-section-h)",
-      borderTop:"1px solid var(--color-line)",
-    }}>
+    <section id="quiz" className="section-border-t section-with-margin">
+      <div className="section-main">
       <div style={{ maxWidth: 640 }}>
         <Rev><Label>(Phần 04 · Ôn tập tương tác · Tiêu chí 3)</Label></Rev>
         <Rev delay={0.1}>
@@ -879,6 +913,13 @@ function Quiz() {
           </div>
         )}
       </div>
+      </div>
+      <SectionMargin
+        num="04 / 06"
+        vertical="Ôn tập tương tác"
+        note="De omnibus dubitandum est. — Hoài nghi mọi điều."
+        noteCite="Motto của K. Marx"
+      />
     </section>
   )
 }
@@ -946,7 +987,8 @@ function AISection() {
   ]
 
   return (
-    <section id="ai" className="section-narrow section-border-t">
+    <section id="ai" className="section-border-t section-with-margin">
+      <div className="section-main ai-main">
       <Rev>
         <Label>(Phụ lục · Minh bạch AI · Tiêu chí 4)</Label>
       </Rev>
@@ -996,6 +1038,13 @@ function AISection() {
           ))}
         </div>
       </Rev>
+      </div>
+      <SectionMargin
+        num="06 / 06"
+        vertical="Minh bạch AI · Tiêu chí 4"
+        note="Công cụ giải phóng đôi tay, không giải phóng trách nhiệm."
+        noteCite="Nguyên tắc liêm chính học thuật"
+      />
     </section>
   )
 }
