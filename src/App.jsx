@@ -729,6 +729,90 @@ const QUIZ = [
     ex:
       "Kiến thức cung cấp nền tảng tư duy. Hành động biến tri thức thành giá trị thực tiễn. Tách rời cả hai đều thất bại.",
   },
+  {
+    q: "Trong ba hình thức cơ bản của thực tiễn, hình thức nào đóng vai trò quyết định?",
+    opts: [
+      "Hoạt động chính trị - xã hội",
+      "Hoạt động sản xuất vật chất",
+      "Thực nghiệm khoa học",
+      "Cả ba có vai trò ngang nhau",
+    ],
+    ans: 1,
+    ex:
+      "Giáo trình Mác-Lênin: sản xuất vật chất có sớm nhất, cơ bản nhất, là cơ sở vật chất cho hai hình thức còn lại tồn tại và phát triển.",
+  },
+  {
+    q: "V.I. Lê-nin tổng kết con đường biện chứng của nhận thức chân lý như thế nào?",
+    opts: [
+      "Từ lý luận đến thực tiễn rồi quay lại lý luận",
+      "Từ trực quan sinh động đến tư duy trừu tượng, từ tư duy trừu tượng đến thực tiễn",
+      "Từ thực tiễn cá nhân đến chân lý phổ biến",
+      "Từ kinh nghiệm đến triết học, từ triết học đến khoa học",
+    ],
+    ans: 1,
+    ex:
+      "Câu nói nổi tiếng của Lê-nin trong 'Bút ký triết học' — vạch ra ba giai đoạn: cảm tính (trực quan sinh động) → lý tính (tư duy trừu tượng) → thực tiễn để kiểm nghiệm.",
+  },
+  {
+    q: "Sinh viên thuộc lòng định nghĩa nhưng không biết áp dụng vào thực tế là biểu hiện của lỗi nhận thức nào?",
+    opts: [
+      "Chủ nghĩa kinh nghiệm",
+      "Chủ nghĩa duy tâm",
+      "Bệnh giáo điều — tuyệt đối hóa lý luận, tách rời thực tiễn",
+      "Chủ nghĩa thực dụng",
+    ],
+    ans: 2,
+    ex:
+      "Bệnh giáo điều biến lý thuyết thành công thức cứng nhắc, mất khả năng vận dụng. Ngược lại bệnh kinh nghiệm chủ nghĩa lại tuyệt đối hóa kinh nghiệm, coi thường lý luận. Cả hai đều vi phạm nguyên tắc 'lý luận gắn liền với thực tiễn'.",
+  },
+  {
+    q: "C. Mác viết: 'Vấn đề tìm hiểu xem tư duy của con người có thể đạt tới chân lý khách quan hay không, hoàn toàn không phải là vấn đề lý luận mà là một vấn đề ___'. Điền từ còn thiếu?",
+    opts: [
+      "khoa học",
+      "thực tiễn",
+      "triết học",
+      "logic",
+    ],
+    ans: 1,
+    ex:
+      "C. Mác trong 'Luận cương về Phơ-bách' — luận cương số 2: chỉ thực tiễn mới chứng minh được tư duy có đạt chân lý hay không. Đây là một trong những luận điểm nền tảng của triết học Mác về vai trò thực tiễn.",
+  },
+  {
+    q: "Đặc điểm nào KHÔNG thuộc về giai đoạn nhận thức cảm tính?",
+    opts: [
+      "Phản ánh trực tiếp qua cảm giác, tri giác, biểu tượng",
+      "Đem lại hình ảnh sinh động về sự vật",
+      "Phân biệt được bản chất và hiện tượng, nguyên nhân và kết quả",
+      "Gắn liền trực tiếp với hoạt động thực tiễn",
+    ],
+    ans: 2,
+    ex:
+      "Nhận thức cảm tính chưa phân biệt được bản chất / hiện tượng, nguyên nhân / kết quả — đó là việc của nhận thức lý tính (tư duy trừu tượng). Cảm tính chỉ phản ánh BỀ NGOÀI của sự vật, lý tính mới đi sâu vào BẢN CHẤT.",
+  },
+  {
+    q: "Trong thời đại AI và mạng xã hội, vì sao tính KHÁCH QUAN của chân lý vẫn được khẳng định?",
+    opts: [
+      "Vì AI luôn cung cấp thông tin đúng",
+      "Vì nội dung chân lý phản ánh hiện thực khách quan, không phụ thuộc ý chí con người",
+      "Vì đa số người dùng mạng đồng thuận về chân lý",
+      "Vì chân lý do các chuyên gia uy tín xác định",
+    ],
+    ans: 1,
+    ex:
+      "Chân lý có tính khách quan vì NỘI DUNG phản ánh là hiện thực khách quan — không phụ thuộc số đông, không phụ thuộc uy tín. Đây là cơ sở triết học để phản bác fake news, deepfake, và 'chân lý đa số' trong thời AI.",
+  },
+  {
+    q: "Câu nói nào KHÔNG phù hợp với quan điểm của triết học Mác-Lênin về mối quan hệ giữa nhận thức và thực tiễn?",
+    opts: [
+      "Học đi đôi với hành, lý luận gắn liền với thực tiễn",
+      "Tri thức chỉ có giá trị khi được kiểm nghiệm qua thực tiễn",
+      "Chỉ cần đọc nhiều sách là sẽ thành công trong cuộc sống",
+      "Thực tiễn là tiêu chuẩn của chân lý",
+    ],
+    ans: 2,
+    ex:
+      "Câu C tách rời tri thức khỏi thực tiễn — vi phạm nguyên tắc cơ bản của nhận thức luận Mác-Lênin. Đây cũng chính là câu hỏi đặt vấn đề mở đầu của bài: 'Cứ học giỏi thì sẽ thành công?' — đáp án là KHÔNG nếu thiếu thực tiễn.",
+  },
 ]
 
 function Quiz() {
@@ -848,10 +932,14 @@ function Quiz() {
                 marginBottom:"2rem",
               }}>
                 {score === QUIZ.length
-                  ? "Hoàn hảo — bạn đã nắm vững mối quan hệ biện chứng."
-                  : score >= 3
-                  ? "Khá tốt — ôn lại các phần chưa chắc."
-                  : "Cần ôn lại — quay về phần Lý thuyết."}
+                  ? "Xuất sắc — nắm vững toàn bộ nhận thức luận Mác-Lênin về mối quan hệ nhận thức ↔ thực tiễn."
+                  : score >= 10
+                  ? "Rất tốt — chỉ thiếu vài chi tiết. Sẵn sàng cho phản biện."
+                  : score >= 7
+                  ? "Khá — nắm được các luận điểm chính. Ôn lại 2-3 phần chưa chắc, đặc biệt phần Thuật ngữ."
+                  : score >= 4
+                  ? "Trung bình — quay lại phần Lý thuyết và Thuật ngữ để củng cố nền tảng."
+                  : "Cần ôn lại nghiêm túc — đọc kỹ giáo trình từ phần Lý thuyết trước khi thuyết trình."}
               </p>
               <button onClick={restart} style={{
                 fontFamily:"var(--font-ui)",
