@@ -275,7 +275,7 @@ function Nav() {
 
 function Hero() {
   const floatRef = useParallax(0.06)
-  const bookRef = useParallax(0.09)
+  const bookRef = useParallax(0.03)
   const go = (id) => {
     const el = document.getElementById(id)
     if (el) el.scrollIntoView({ behavior: "smooth", block: "start" })
@@ -286,6 +286,10 @@ function Hero() {
         <img src="/img/manuscript-bg.jpg" alt="" aria-hidden="true" style={{ width: "100%", height: "100%", objectFit: "cover", opacity: 0.06, mixBlendMode: "screen", filter: "grayscale(1)" }} />
       </div>
 
+      <div ref={bookRef} className="hero-book-bg" aria-hidden="true">
+        <img src="/img/book-notes.jpg" alt="" loading="lazy" decoding="async" />
+      </div>
+
       <span className="hero-watermark" aria-hidden="true">NHẬN THỨC</span>
 
       <div ref={floatRef} style={{ position: "absolute", right: "var(--space-section-h)", top: "50%", transform: "translateY(-50%)", width: "clamp(200px, 22vw, 300px)", height: "clamp(260px, 28vw, 390px)", overflow: "hidden", zIndex: 1 }}>
@@ -293,13 +297,9 @@ function Hero() {
         <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to bottom, transparent 40%, rgba(11,10,8,0.6) 100%)" }} />
       </div>
 
-      <div ref={bookRef} style={{ position: "absolute", left: "var(--space-section-h)", bottom: "12%", width: "clamp(130px, 14vw, 180px)", height: "clamp(85px, 9vw, 120px)", overflow: "hidden", zIndex: 1 }}>
-        <img src="/img/book-notes.jpg" alt="" style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center top" }} />
-      </div>
-
       <div className="hero-content" style={{ position: "relative", zIndex: 2, paddingBottom: "4rem" }}>
         <Rev>
-          <Label style={{ color: "var(--color-accent)", opacity: 0.8 }}>
+          <Label style={{ color: "#C44A3F", opacity: 1, letterSpacing: "0.22em" }}>
             (MLN111 · Chủ nghĩa Duy vật Biện chứng · 2026)
           </Label>
         </Rev>
@@ -964,24 +964,24 @@ function AISection() {
   const checks = [
     {
       n: "4.1 Minh bạch",
-      score: "0.5đ ✓",
+      score: "✓",
       body: "Liệt kê đủ công cụ, mục đích, prompt và link chat.",
     },
     {
       n: "4.2 Trách nhiệm",
-      score: "0.5đ ✓",
+      score: "✓",
       body:
         "Mọi luận điểm AI đối chiếu giáo trình LLCT và nguồn chính thống.",
     },
     {
       n: "4.3 Liêm chính",
-      score: "0.5đ ✓",
+      score: "✓",
       body:
         "Cam kết văn bản. Phân định rõ AI output và phần nhóm chỉnh sửa.",
     },
     {
       n: "4.4 Sáng tạo",
-      score: "0.5đ ✓",
+      score: "✓",
       body:
         "AI hỗ trợ quiz và website — không thay tư duy phân tích của nhóm.",
     },
