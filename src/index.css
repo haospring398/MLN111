@@ -1165,6 +1165,7 @@ section {
   grid-template-columns: minmax(0, 1fr) 220px;
   gap: clamp(2rem, 6vw, 6rem);
   align-items: start;
+  max-width: 1280px;
 }
 .section-with-margin > .section-main {
   min-width: 0;
@@ -1189,13 +1190,15 @@ section {
 .margin-vertical {
   font-family: var(--font-ui);
   font-size: var(--type-label);
-  letter-spacing: 0.35em;
+  letter-spacing: 0.4em;
   text-transform: uppercase;
   color: var(--color-text-muted);
   writing-mode: vertical-rl;
   transform: rotate(180deg);
   align-self: flex-start;
-  padding: 0.5rem 0;
+  padding: 1rem 0;
+  max-height: 18rem;
+  overflow: hidden;
 }
 .margin-note {
   font-family: var(--font-display);

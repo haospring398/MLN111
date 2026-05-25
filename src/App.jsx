@@ -413,18 +413,14 @@ function TheorySection() {
         </div>
       </Rev>
 
-      <Rev delay={2}>
-        <div className="theory-float-bottom">
-          <img
-            src="/img/hands-book.jpg"
-            alt=""
-            loading="lazy"
-            decoding="async"
-          />
-        </div>
+      <Rev delay={2} className="theory-float-bottom">
+        <img
+          src="/img/hands-book.jpg"
+          alt=""
+          loading="lazy"
+          decoding="async"
+        />
       </Rev>
-
-      <div className="clear" />
 
       <Rev delay={1}>
         <Pull
@@ -432,6 +428,8 @@ function TheorySection() {
           cite="Giáo trình Triết học Mác-Lênin · NXB Chính trị Quốc gia"
         />
       </Rev>
+
+      <div className="clear" />
     </section>
   )
 }
