@@ -508,9 +508,14 @@ function StatsSection() {
                 dụng — bao gồm: thích ứng linh hoạt, làm việc nhóm,
                 giao tiếp và kỷ luật lao động
               </p>
-              <span className="stat-source">
-                Báo Nhân Dân · Chuyên đề Nguồn nhân lực 2024 · nhandan.vn
-              </span>
+              <a
+                href="https://nhandan.vn/tao-nguon-nhan-luc-phuc-vu-chuyen-doi-so-post800037.html"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="stat-source stat-source-link"
+              >
+                Báo Nhân Dân · Chuyên đề Nguồn nhân lực 2024 · nhandan.vn ↗
+              </a>
             </div>
           </div>
         </Rev>
@@ -526,10 +531,15 @@ function StatsSection() {
                 có việc làm sau 12 tháng (toàn quốc). Các ngành Kỹ thuật,
                 Công nghệ đạt 85–95%
               </p>
-              <span className="stat-source">
+              <a
+                href="https://moet.gov.vn/giaoducquocdan/giao-duc-dai-hoc/Pages/Default.aspx?ItemID=9705"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="stat-source stat-source-link"
+              >
                 Bộ Giáo dục và Đào tạo · Hội nghị GD Đại học tháng
-                8-9/2024 · moet.gov.vn
-              </span>
+                8-9/2024 · moet.gov.vn ↗
+              </a>
             </div>
           </div>
         </Rev>
@@ -548,10 +558,15 @@ function StatsSection() {
               lý luận gắn liền với thực tiễn."
             </span>
             <div className="stat-meta">
-              <span className="stat-source">
+              <a
+                href="https://tulieuvankien.dangcongsan.vn/van-kien-tu-lieu-ve-dang/book/sach-chinh-tri/van-kien-dai-hoi-dai-bieu-toan-quoc-lan-thu-xiii-tap-1-403"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="stat-source stat-source-link"
+              >
                 Văn kiện Đại hội XIII · Đảng Cộng sản Việt Nam · 2021 ·
-                tulieuvankien.dangcongsan.vn
-              </span>
+                tulieuvankien.dangcongsan.vn ↗
+              </a>
             </div>
           </div>
         </Rev>
