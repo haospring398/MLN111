@@ -274,7 +274,6 @@ function Nav() {
    ============================================================ */
 
 function Hero() {
-  const floatRef = useParallax(0.06)
   const bookRef = useParallax(0.03)
   const go = (id) => {
     const el = document.getElementById(id)
@@ -292,19 +291,18 @@ function Hero() {
 
       <span className="hero-watermark" aria-hidden="true">NHẬN THỨC</span>
 
-      <div ref={floatRef} style={{ position: "absolute", right: "var(--space-section-h)", top: "50%", transform: "translateY(-50%)", width: "clamp(200px, 22vw, 300px)", height: "clamp(260px, 28vw, 390px)", overflow: "hidden", zIndex: 1 }}>
-        <img src="/img/socrates.jpg" alt="" style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center top", filter: "grayscale(0.5) brightness(0.7)" }} />
-        <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to bottom, transparent 40%, rgba(11,10,8,0.6) 100%)" }} />
+      <div className="hero-portrait hero-portrait-cutout">
+        <img src="/img/socrates.png" alt="" loading="eager" decoding="async" />
       </div>
 
       <div className="hero-content" style={{ position: "relative", zIndex: 2, paddingBottom: "4rem" }}>
         <Rev>
-          <Label style={{ color: "#C44A3F", opacity: 1, letterSpacing: "0.22em" }}>
+          <Label style={{ color: "var(--color-accent)", letterSpacing: "0.24em", fontWeight: 500 }}>
             (MLN111 · Chủ nghĩa Duy vật Biện chứng · 2026)
           </Label>
         </Rev>
         <Rev delay={1}>
-          <h1 className="hero-h1">
+          <h1 className="hero-h1" style={{ marginTop: "1rem" }}>
             Nhận thức
             <br />
             <i>và Thực tiễn</i>
@@ -312,7 +310,7 @@ function Hero() {
         </Rev>
       </div>
 
-      <Rev delay={2} style={{ position: "absolute", bottom: "2rem", left: "var(--space-section-h)", zIndex: 2 }}>
+      <Rev delay={2} style={{ position: "absolute", bottom: "3rem", left: "calc(var(--space-section-h) + 0.5rem)", zIndex: 2 }}>
         <button className="hero-scroll" onClick={() => go("theory")}>
           Scroll ↓
         </button>

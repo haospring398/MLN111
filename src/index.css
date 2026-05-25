@@ -75,8 +75,8 @@
   --color-text         : #F1EAD8;
   --color-text-muted   : #8A8275;
   --color-text-label   : #7A7268;
-  --color-accent       : #8C2A26;
-  --color-accent-glow  : rgba(140, 42, 38, 0.18);
+  --color-accent       : #C44A3F;
+  --color-accent-glow  : rgba(196, 74, 63, 0.18);
   --color-line         : #2B2722;
   --color-line-strong  : #3D3832;
 
@@ -110,7 +110,7 @@
   --space-stack-md  : 2rem;
 
   --nav-height    : 72px;
-  --border-frame  : 1px solid rgba(140, 42, 38, 0.22);
+  --border-frame  : 1px solid rgba(196, 74, 63, 0.22);
   --pill-padding  : 0.625rem 1.5rem;
   --pill-radius   : 999px;
   --arrow-btn-size: 44px;
@@ -317,7 +317,7 @@ h1, h2, h3, h4, h5, h6 {
   letter-spacing: 0.05em;
 }
 .nav-pill {
-  border: 1px solid rgba(140, 42, 38, 0.4);
+  border: 1px solid rgba(196, 74, 63, 0.4);
   border-radius: var(--pill-radius);
   padding: 0.4rem 1.25rem;
   font-family: var(--font-ui);
@@ -421,7 +421,8 @@ h1, h2, h3, h4, h5, h6 {
   z-index: 2;
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  gap: 2.5rem;
+  padding-bottom: 4rem;
 }
 .hero-h1 {
   font-family: var(--font-display);
@@ -439,6 +440,75 @@ h1, h2, h3, h4, h5, h6 {
   align-items: center;
   gap: 0.75rem;
   margin-top: 2rem;
+  padding: 0.5rem 0.25rem;
+}
+
+/* Hero portrait (Socrates) — base positioning */
+.hero-portrait {
+  position: absolute;
+  right: var(--space-section-h);
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 1;
+}
+
+/* Cutout variant — transparent PNG */
+.hero-portrait-cutout {
+  position: absolute;
+  right: var(--space-section-h);
+  top: 50%;
+  transform: translateY(-50%);
+  width: clamp(560px, 50vw, 820px);
+  height: auto;
+  aspect-ratio: 3 / 2;
+  background: transparent !important;
+  background-color: transparent !important;
+  filter: drop-shadow(0 24px 60px rgba(0, 0, 0, 0.8));
+  z-index: 2;
+  overflow: visible;
+  pointer-events: none;
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    black 0%,
+    black 88%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    to bottom,
+    black 0%,
+    black 88%,
+    transparent 100%
+  );
+}
+.hero-portrait-cutout img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center center;
+  filter: grayscale(0.15) brightness(0.95) contrast(1.05);
+  background: transparent !important;
+}
+.hero-portrait-cutout .hero-portrait-grad {
+  display: none;
+}
+
+@media (max-width: 1200px) {
+  .hero-portrait-cutout {
+    width: 36vw;
+    height: 48vw;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero-portrait-cutout {
+    width: 65vw;
+    aspect-ratio: 3 / 2;
+    height: auto;
+    top: 12%;
+    transform: none;
+    right: 0;
+    opacity: 0.55;
+  }
 }
 
 .hero-book-bg {
