@@ -133,6 +133,30 @@ function SectionMargin({ num, vertical, note, noteCite }) {
   )
 }
 
+function CrossLink({ prompt, links }) {
+  const go = (id) => {
+    const el = document.getElementById(id)
+    if (el) el.scrollIntoView({ behavior: "smooth", block: "start" })
+  }
+  return (
+    <div className="cross-link">
+      <p className="cross-link-prompt">{prompt}</p>
+      <div className="cross-link-actions">
+        {links.map((link, i) => (
+          <button
+            key={i}
+            className="cross-link-btn"
+            onClick={() => go(link.target)}
+          >
+            <span>{link.label}</span>
+            <span className="cross-link-arrow" aria-hidden="true">→</span>
+          </button>
+        ))}
+      </div>
+    </div>
+  )
+}
+
 /* ============================================================
    LOADER
    ============================================================ */
@@ -197,9 +221,9 @@ function Loader() {
    NAV
    ============================================================ */
 
-function Nav() {
+function Nav({ showPrep }) {
   const [menuOpen, setMenuOpen] = useState(false)
-  const sectionIds = ["theory","stats","compare","quiz","ai"]
+  const sectionIds = ["theory","stats","compare","quiz","rebuttal","glossary","ai","references"]
   const active = useActiveSection(sectionIds)
 
   const go = (id) => {
@@ -215,8 +239,14 @@ function Nav() {
   }, [menuOpen])
 
   const links = [
-    ["theory","Lý thuyết"],["stats","Thực tiễn"],
-    ["compare","So sánh"],["quiz","Ôn tập"],["ai","Phụ lục AI"],
+    ["theory","Lý thuyết"],
+    ["stats","Thực tiễn"],
+    ["compare","So sánh"],
+    ["quiz","Ôn tập"],
+    ...(showPrep ? [["rebuttal","Phản biện"]] : []),
+    ["glossary","Thuật ngữ"],
+    ["ai","Phụ lục AI"],
+    ["references","Tài liệu"],
   ]
 
   return (
@@ -430,6 +460,16 @@ function TheorySection() {
             <img src="/img/hands-book.jpg" alt="" loading="lazy" decoding="async" />
           </div>
         </div>
+      </Rev>
+
+      <Rev delay={2}>
+        <CrossLink
+          prompt="Lý thuyết đã rõ. Tiếp theo —"
+          links={[
+            { label: "Xem dẫn chứng thực tế", target: "stats" },
+            { label: "Làm quiz kiểm tra", target: "quiz" },
+          ]}
+        />
       </Rev>
     </section>
   )
@@ -1163,6 +1203,243 @@ function Rebuttal() {
 }
 
 /* ============================================================
+   GLOSSARY
+   ============================================================ */
+
+const GLOSSARY = [
+  {
+    term: "Nhận thức",
+    def: "Là quá trình phản ánh hiện thực khách quan vào bộ óc người.",
+    note: "Không phải phản ánh thụ động như cái gương, mà là quá trình phản ánh tích cực, chủ động, sáng tạo trên cơ sở thực tiễn mang tính lịch sử cụ thể.",
+  },
+  {
+    term: "Thực tiễn",
+    def: "Toàn bộ hoạt động vật chất - cảm tính có mục đích, mang tính lịch sử - xã hội, nhằm cải tạo tự nhiên và xã hội.",
+    note: "Con người phải sử dụng lực lượng vật chất, công cụ vật chất tác động vào đối tượng. Mục đích cao nhất là phục vụ nhân loại tiến bộ.",
+  },
+  {
+    term: "Nhận thức cảm tính",
+    def: "Giai đoạn đầu — trực quan sinh động — phản ánh trực tiếp qua cảm giác, tri giác, biểu tượng.",
+    note: "Gắn liền trực tiếp với thực tiễn. Đem lại hình ảnh trực tiếp về sự vật nhưng chưa phân biệt được cái riêng và cái chung, bản chất và hiện tượng, nguyên nhân và kết quả.",
+  },
+  {
+    term: "Nhận thức lý tính",
+    def: "Giai đoạn cao — tư duy trừu tượng — phản ánh gián tiếp, khái quát qua khái niệm, phán đoán, suy lý.",
+    note: "Phản ánh sự vật trong tính tất yếu, chỉnh thể toàn diện, đi sâu vào bản chất. Suy lý giúp tư duy đi từ cái đã biết đến cái chưa biết. Luôn hàm chứa nguy cơ xa rời hiện thực nên phải được kiểm tra bởi thực tiễn.",
+  },
+  {
+    term: "Chân lý",
+    def: "Tri thức phù hợp với hiện thực khách quan và được thực tiễn kiểm nghiệm.",
+    note: "Chân lý là tri thức, không phải bản thân hiện thực. Do nội dung phản ánh là khách quan nên chân lý bao giờ cũng có tính khách quan, không phụ thuộc vào con người hay loài người.",
+  },
+  {
+    term: "Chân lý tuyệt đối / tương đối",
+    def: "Tương đối: tri thức đúng nhưng chưa đầy đủ, mới phản ánh đúng một mặt, một bộ phận. Tuyệt đối: phản ánh đầy đủ, toàn diện hiện thực ở một giai đoạn lịch sử xác định.",
+    note: "V.I. Lê-nin: tư duy con người có thể cung cấp chân lý tuyệt đối, nhưng chân lý tuyệt đối này chỉ là tổng số những chân lý tương đối.",
+  },
+  {
+    term: "Chân lý cụ thể",
+    def: "\"Không có chân lý trừu tượng, chung chung, chân lý luôn là cụ thể\" — V.I. Lê-nin.",
+    note: "Chân lý gắn với điều kiện không gian, thời gian, hoàn cảnh lịch sử cụ thể. Đòi hỏi chủ thể phải có quan điểm lịch sử cụ thể, luôn sáng tạo trong hoạt động thực tiễn.",
+  },
+  {
+    term: "Ba hình thức thực tiễn",
+    def: "Hoạt động sản xuất vật chất · Hoạt động chính trị - xã hội · Thực nghiệm khoa học.",
+    note: "Hoạt động sản xuất vật chất là hình thức có sớm nhất, cơ bản nhất và quan trọng nhất — đóng vai trò quyết định đối với hai hình thức còn lại.",
+  },
+  {
+    term: "Biện chứng",
+    def: "Phương pháp nhận thức đối tượng trong mối liên hệ phổ biến và trạng thái vận động, phát triển — đối lập với siêu hình.",
+    note: "Chia thành biện chứng khách quan (của bản thân thế giới) và biện chứng chủ quan (phản ánh biện chứng khách quan vào tư duy con người). Phương pháp siêu hình nhận thức đối tượng ở trạng thái cô lập, tĩnh tại.",
+  },
+  {
+    term: "Vật tự nó (Kant)",
+    def: "Khái niệm của I. Kant về thực tại độc lập với nhận thức — cho rằng con người không thể có tri thức đúng đắn về thực tại nằm ngoài kinh nghiệm.",
+    note: "Ph. Ăngghen phản bác: thông qua thực tiễn (\"tự chúng ta làm ra hiện tượng ấy\"), \"vật tự nó\" sẽ bị biến thành \"vật cho ta\" — khẳng định khả năng nhận thức vô tận của con người.",
+  },
+]
+
+function Glossary() {
+  const [openIdx, setOpenIdx] = useState(null)
+
+  const toggle = (i) => {
+    setOpenIdx(prev => prev === i ? null : i)
+  }
+
+  return (
+    <section id="glossary" className="section-narrow section-border-t">
+      <Rev>
+        <Label>(Phụ lục · Thuật ngữ triết học)</Label>
+      </Rev>
+      <Rev delay={1}>
+        <h2 className="h2" style={{ marginTop: "var(--space-stack-md)" }}>
+          Thuật ngữ <Dash /> <i>then chốt</i>
+        </h2>
+      </Rev>
+
+      <Rev delay={2}>
+        <p className="glossary-intro">
+          10 khái niệm nền tảng của Triết học Mác-Lênin về nhận thức và thực tiễn.
+          Click vào từng mục để xem định nghĩa và bổ sung.
+        </p>
+      </Rev>
+
+      <Rev delay={1}>
+        <div className="glossary-list">
+          {GLOSSARY.map((g, i) => {
+            const isOpen = openIdx === i
+            return (
+              <div key={i} className={`glossary-item ${isOpen ? "open" : ""}`}>
+                <button
+                  className="glossary-head"
+                  onClick={() => toggle(i)}
+                  aria-expanded={isOpen}
+                  aria-controls={`glossary-body-${i}`}
+                >
+                  <span className="glossary-num">{String(i + 1).padStart(2, "0")}</span>
+                  <span className="glossary-term">{g.term}</span>
+                  <span className="glossary-icon" aria-hidden="true">
+                    {isOpen ? "−" : "+"}
+                  </span>
+                </button>
+                <div
+                  id={`glossary-body-${i}`}
+                  className="glossary-body"
+                  aria-hidden={!isOpen}
+                >
+                  <div className="glossary-body-inner">
+                    <p className="glossary-def">{g.def}</p>
+                    <p className="glossary-note">
+                      <span className="glossary-note-label">Bổ sung —</span> {g.note}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            )
+          })}
+        </div>
+      </Rev>
+    </section>
+  )
+}
+
+/* ============================================================
+   REFERENCES
+   ============================================================ */
+
+const REFERENCES = [
+  {
+    category: "Giáo trình chính",
+    items: [
+      {
+        author: "Bộ Giáo dục và Đào tạo",
+        title: "Giáo trình Triết học Mác-Lênin (Dành cho bậc đại học hệ không chuyên lý luận chính trị)",
+        publisher: "NXB Chính trị Quốc gia Sự thật",
+        year: "2021",
+      },
+    ],
+  },
+  {
+    category: "Tác phẩm kinh điển",
+    items: [
+      {
+        author: "Ph. Ăngghen",
+        title: "Biện chứng của tự nhiên",
+        note: "1873-1883",
+      },
+      {
+        author: "Ph. Ăngghen",
+        title: "Lút-vích Phơ-bách và sự cáo chung của triết học cổ điển Đức",
+        note: "1886",
+      },
+      {
+        author: "V.I. Lê-nin",
+        title: "Bút ký triết học",
+        note: "Trích dẫn về chân lý cụ thể và quan hệ biện chứng giữa lý luận và thực tiễn",
+      },
+    ],
+  },
+  {
+    category: "Văn kiện chính trị",
+    items: [
+      {
+        author: "Đảng Cộng sản Việt Nam",
+        title: "Văn kiện Đại hội đại biểu toàn quốc lần thứ XIII, Tập 1",
+        year: "2021",
+        url: "https://tulieuvankien.dangcongsan.vn/van-kien-tu-lieu-ve-dang/book/sach-chinh-tri/van-kien-dai-hoi-dai-bieu-toan-quoc-lan-thu-xiii-tap-1-403",
+      },
+    ],
+  },
+  {
+    category: "Nguồn số liệu thực tiễn",
+    items: [
+      {
+        author: "Báo Nhân Dân",
+        title: "Tạo nguồn nhân lực phục vụ chuyển đổi số",
+        note: "Chuyên đề Nguồn nhân lực 2024",
+        url: "https://nhandan.vn/tao-nguon-nhan-luc-phuc-vu-chuyen-doi-so-post800037.html",
+      },
+      {
+        author: "Bộ Giáo dục và Đào tạo",
+        title: "Hội nghị Giáo dục Đại học — Số liệu việc làm sinh viên tốt nghiệp",
+        note: "Tháng 8-9/2024",
+        url: "https://moet.gov.vn/giaoducquocdan/giao-duc-dai-hoc/Pages/Default.aspx?ItemID=9705",
+      },
+    ],
+  },
+]
+
+function References() {
+  return (
+    <section id="references" className="section-narrow section-border-t">
+      <Rev>
+        <Label>(Phụ lục · Tài liệu tham khảo)</Label>
+      </Rev>
+      <Rev delay={1}>
+        <h2 className="h2" style={{ marginTop: "var(--space-stack-md)" }}>
+          Tài liệu <Dash /> <i>tham khảo</i>
+        </h2>
+      </Rev>
+
+      <div className="references-list">
+        {REFERENCES.map((cat, i) => (
+          <Rev delay={i + 1} key={cat.category}>
+            <div className="references-group">
+              <h3 className="references-category">{cat.category}</h3>
+              <ol className="references-items">
+                {cat.items.map((item, j) => (
+                  <li key={j} className="references-item">
+                    <span className="references-author">{item.author}.</span>
+                    {' '}
+                    <i className="references-title">{item.title}</i>
+                    {item.publisher && <span>. {item.publisher}</span>}
+                    {item.year && <span>, {item.year}</span>}
+                    {item.note && <span className="references-note"> · {item.note}</span>}
+                    {item.url && (
+                      <>
+                        {' '}
+                        <a
+                          href={item.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="references-link"
+                        >
+                          [Xem nguồn ↗]
+                        </a>
+                      </>
+                    )}
+                  </li>
+                ))}
+              </ol>
+            </div>
+          </Rev>
+        ))}
+      </div>
+    </section>
+  )
+}
+
+/* ============================================================
    FOOTER
    ============================================================ */
 
@@ -1196,7 +1473,7 @@ export default function App() {
     <>
       <Loader />
       <div id="app-root">
-        <Nav />
+        <Nav showPrep={showPrep} />
         <Hero />
         <CQSection />
         <TheorySection />
@@ -1205,7 +1482,9 @@ export default function App() {
         <CompareSection />
         <Quiz />
         {showPrep && <Rebuttal />}
+        <Glossary />
         <AISection />
+        <References />
         <Footer />
       </div>
     </>
