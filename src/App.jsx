@@ -145,40 +145,49 @@ function Loader() {
   }, [])
   return (
     <div className={`loader${hidden ? " hidden" : ""}`} aria-hidden="true">
-      <svg className="loader-svg" viewBox="0 0 300 80"
+      <svg className="loader-svg" viewBox="0 0 262 70"
            xmlns="http://www.w3.org/2000/svg">
-        {/* M */}
-        <path className="loader-path"
-          style={{"--len":120,"--delay":"0s"}}
-          d="M10,65 L10,15 L35,45 L60,15 L60,65" />
-        {/* L */}
-        <path className="loader-path"
-          style={{"--len":70,"--delay":"0.15s"}}
-          d="M75,15 L75,65 L100,65" />
-        {/* N */}
-        <path className="loader-path"
-          style={{"--len":110,"--delay":"0.3s"}}
-          d="M115,65 L115,15 L145,65 L145,15" />
-        {/* separator */}
-        <path className="loader-path"
-          style={{"--len":30,"--delay":"0.5s"}}
-          d="M162,40 L178,40" />
-        {/* 1 */}
-        <path className="loader-path"
-          style={{"--len":60,"--delay":"0.6s"}}
-          d="M192,20 L200,15 L200,65" />
-        {/* 1 */}
-        <path className="loader-path"
-          style={{"--len":60,"--delay":"0.72s"}}
-          d="M218,20 L226,15 L226,65" />
-        {/* 1 */}
-        <path className="loader-path"
-          style={{"--len":60,"--delay":"0.84s"}}
-          d="M244,20 L252,15 L252,65" />
+        <g
+          stroke="currentColor"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          fill="none"
+          vectorEffect="non-scaling-stroke"
+        >
+          {/* M */}
+          <path className="loader-path" pathLength="100"
+            style={{"--delay":"0s"}}
+            d="M0,60 L0,10 L25,55 L50,10 L50,60" />
+          {/* L */}
+          <path className="loader-path" pathLength="100"
+            style={{"--delay":"0.15s"}}
+            d="M65,10 L65,60 L95,60" />
+          {/* N */}
+          <path className="loader-path" pathLength="100"
+            style={{"--delay":"0.3s"}}
+            d="M110,60 L110,10 L145,60 L145,10" />
+          {/* separator */}
+          <path className="loader-path" pathLength="100"
+            style={{"--delay":"0.5s"}}
+            d="M158,35 L176,35" />
+          {/* 1 */}
+          <path className="loader-path" pathLength="100"
+            style={{"--delay":"0.6s"}}
+            d="M188,18 L196,12 L196,60" />
+          {/* 1 */}
+          <path className="loader-path" pathLength="100"
+            style={{"--delay":"0.72s"}}
+            d="M214,18 L222,12 L222,60" />
+          {/* 1 */}
+          <path className="loader-path" pathLength="100"
+            style={{"--delay":"0.84s"}}
+            d="M240,18 L248,12 L248,60" />
+        </g>
       </svg>
       <div className="loader-bar" />
       <span className="loader-label">
-        Nhận thức · Thực tiễn · 2025
+        Nhận thức · Thực tiễn · Group 7
       </span>
     </div>
   )
@@ -413,23 +422,17 @@ function TheorySection() {
         </div>
       </Rev>
 
-      <Rev delay={2} className="theory-float-bottom">
-        <img
-          src="/img/hands-book.jpg"
-          alt=""
-          loading="lazy"
-          decoding="async"
-        />
+      <Rev delay={2}>
+        <div className="theory-quote-grid">
+          <Pull
+            text='"Tri thức là cơ sở trực tiếp hình thành thế giới quan, nhưng tri thức chỉ gia nhập thế giới quan khi đã được kiểm nghiệm ít nhiều trong thực tiễn và trở thành niềm tin."'
+            cite="Giáo trình Triết học Mác-Lênin · NXB Chính trị Quốc gia"
+          />
+          <div className="theory-quote-image">
+            <img src="/img/hands-book.jpg" alt="" loading="lazy" decoding="async" />
+          </div>
+        </div>
       </Rev>
-
-      <Rev delay={1}>
-        <Pull
-          text='"Tri thức là cơ sở trực tiếp hình thành thế giới quan, nhưng tri thức chỉ gia nhập thế giới quan khi đã được kiểm nghiệm ít nhiều trong thực tiễn và trở thành niềm tin."'
-          cite="Giáo trình Triết học Mác-Lênin · NXB Chính trị Quốc gia"
-        />
-      </Rev>
-
-      <div className="clear" />
     </section>
   )
 }
