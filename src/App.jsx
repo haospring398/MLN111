@@ -574,16 +574,18 @@ function CompareSection() {
       </Rev>
 
       <Rev delay={2}>
+        <div className="compare-intro-image" style={{ width: "100%", height: "clamp(180px, 20vw, 280px)", overflow: "hidden", marginTop: "var(--space-stack-lg)", marginBottom: "var(--space-stack-md)", position: "relative" }}>
+          <img src="/img/theory-practice.jpg" alt="" loading="lazy" decoding="async" style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center 40%", filter: "grayscale(0.4) contrast(1.1) brightness(0.75)" }} />
+          <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to right, rgba(11,10,8,0.85) 0%, rgba(11,10,8,0.2) 60%, rgba(11,10,8,0.85) 100%)" }} />
+        </div>
+      </Rev>
+
+      <Rev delay={3}>
         <div className="compare-headers">
           <span className="compare-h-left">Môi trường học đường</span>
           <span className="compare-h-right">Môi trường nghề nghiệp</span>
         </div>
       </Rev>
-
-      <div style={{ width: "100%", height: "clamp(160px, 18vw, 240px)", overflow: "hidden", marginBottom: "0", position: "relative" }}>
-        <img src="/img/theory-practice.jpg" alt="" loading="lazy" decoding="async" style={{ width: "100%", height: "100%", objectFit: "cover", objectPosition: "center 40%", filter: "grayscale(0.4) contrast(1.1) brightness(0.75)" }} />
-        <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to right, rgba(11,10,8,0.85) 0%, rgba(11,10,8,0.2) 60%, rgba(11,10,8,0.85) 100%)" }} />
-      </div>
 
       {rows.map((r, i) => (
         <Rev delay={i + 1} key={r.tag}>
