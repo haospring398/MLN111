@@ -493,7 +493,7 @@ function StatsSection() {
 
       <div className="stats-inner">
         <Rev>
-          <Label>(Phần 02 · Gắn kết thực tiễn · Tiêu chí 5)</Label>
+          <Label>(Phần 02 · Gắn kết thực tiễn)</Label>
         </Rev>
 
         <hr className="hr-line" />
@@ -881,7 +881,7 @@ function Quiz() {
     <section id="quiz" className="section-border-t section-with-margin">
       <div className="section-main">
       <div style={{ maxWidth: 640 }}>
-        <Rev><Label>(Phần 04 · Ôn tập tương tác · Tiêu chí 3)</Label></Rev>
+        <Rev><Label>(Phần 04 · Ôn tập tương tác)</Label></Rev>
         <Rev delay={0.1}>
           <h2 style={{
             fontFamily:"var(--font-display)",
@@ -1134,7 +1134,7 @@ function AISection() {
     <section id="ai" className="section-border-t section-with-margin">
       <div className="section-main ai-main">
       <Rev>
-        <Label>(Phụ lục · Minh bạch AI · Tiêu chí 4)</Label>
+        <Label>(Phụ lục · Minh bạch AI)</Label>
       </Rev>
       <Rev delay={1}>
         <h2 className="h2" style={{ marginTop: "var(--space-stack-md)" }}>
