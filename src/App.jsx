@@ -322,20 +322,20 @@ function Hero() {
       <span className="hero-watermark" aria-hidden="true">DE OMNIBUS DUBITANDUM</span>
 
       <div className="hero-portrait hero-portrait-cutout">
-        <img src="/img/socrates.png" alt="" loading="eager" decoding="async" />
+        <img src="/img/marx.png" alt="" loading="eager" decoding="async" />
       </div>
 
       <div className="hero-content" style={{ position: "relative", zIndex: 2, paddingBottom: "4rem" }}>
         <Rev>
           <Label style={{ color: "var(--color-accent)", letterSpacing: "0.24em", fontWeight: 500 }}>
-            (MLN111 · Chủ nghĩa Duy vật Biện chứng · 2026)
+            MLN111 · Chủ nghĩa Duy vật Biện chứng · 2026
           </Label>
         </Rev>
         <Rev delay={1}>
           <h1 className="hero-h1" style={{ marginTop: "1rem" }}>
             Nhận thức
             <br />
-            <i>và Thực tiễn</i>
+            và Thực tiễn
           </h1>
         </Rev>
       </div>
@@ -364,7 +364,7 @@ function CQSection() {
           <h2 className="h2" style={{ marginTop: "var(--space-stack-md)" }}>
             Cứ học giỏi<br />
             thì sẽ thành công<br />
-            <i>trong sự nghiệp?</i>
+            trong sự nghiệp?
           </h2>
         </Rev>
         <Rev delay={2}>
@@ -396,7 +396,7 @@ function TheorySection() {
   return (
     <section id="theory" className="section-narrow">
       <Rev>
-        <Label>Phần 01 - Lý thuyết</Label>
+        <Label>I - Lý luận</Label>
       </Rev>
       <Rev delay={1}>
         <h2 className="h2" style={{ marginTop: "var(--space-stack-md)", marginBottom: "var(--space-stack-lg)" }}>
@@ -412,12 +412,12 @@ function TheorySection() {
         <div className="point">
           <span className="point-num">01 ──────</span>
           <h3 className="point-h">
-            Cơ sở <i>hình thành</i>
+            Cơ sở và động lực
           </h3>
           <p className="point-body">
             Con người không thể nhận thức thế giới bằng suy nghĩ thuần túy
             mà phải qua lao động, trải nghiệm và hoạt động cải biến hiện
-            thực.
+            thực. Thực tiễn đề ra nhu cầu, nhiệm vụ → thúc đẩy ngành khoa học mới ra đời
           </p>
         </div>
       </Rev>
@@ -426,7 +426,7 @@ function TheorySection() {
         <div className="point">
           <span className="point-num">02 ──────</span>
           <h3 className="point-h">
-            Tiêu chuẩn <i>của chân lý</i>
+            Tiêu chuẩn của chân lý
           </h3>
           <p className="point-body">
             Nhận thức dù logic đến đâu vẫn cần kiểm nghiệm qua thực tế.
@@ -440,7 +440,7 @@ function TheorySection() {
         <div className="point">
           <span className="point-num">03 ──────</span>
           <h3 className="point-h">
-            Mục đích <i>cuối cùng</i>
+            Mục đích cuối cùng
           </h3>
           <p className="point-body">
             Con người nhận thức không chỉ để "biết" mà để cải tạo hiện
@@ -492,7 +492,7 @@ function StatsSection() {
 
       <div className="stats-inner">
         <Rev>
-          <Label>Phần 02 - Gắn kết thực tiễn</Label>
+          <Label>II - Gắn kết thực tiễn</Label>
         </Rev>
 
         <hr className="hr-line" />
@@ -619,7 +619,7 @@ function CompareSection() {
   return (
     <section id="compare" className="section-narrow">
       <Rev>
-        <Label>Phần 03 - Phân tích so sánh</Label>
+        <Label>III - Phân tích so sánh</Label>
       </Rev>
       <Rev delay={1}>
         <h2 className="h2" style={{ marginTop: "var(--space-stack-md)" }}>
@@ -657,7 +657,8 @@ function CompareSection() {
       ))}
 
       <Rev delay={1}>
-        <Pull text="Giá trị của nhận thức không nằm ở lượng tri thức sở hữu mà nằm ở khả năng biến tri thức thành hành động và kết quả cụ thể." />
+        <Pull text='"Các nhà triết học cho đến nay mới chỉ giải thích thế giới bằng nhiều cách khác nhau; vấn đề là phải cải tạo thế giới."'
+              cite="K. Marx · Luận cương về Phơ-bách (1845), luận cương 11" />
       </Rev>
     </section>
   )
@@ -880,7 +881,7 @@ function Quiz() {
     <section id="quiz" className="section-border-t section-with-margin">
       <div className="section-main">
       <div style={{ maxWidth: 640 }}>
-        <Rev><Label>Phần 04 - Ôn tập tương tác</Label></Rev>
+        <Rev><Label>IV - Ôn tập</Label></Rev>
         <Rev delay={0.1}>
           <h2 style={{
             fontFamily:"var(--font-display)",
@@ -910,7 +911,7 @@ function Quiz() {
         {done ? (
           <Rev>
             <div style={{ textAlign:"center", padding:"3rem 0" }}>
-              <Label>(Kết quả)</Label>
+              <Label>Kết quả</Label>
               <div style={{
                 fontFamily:"var(--font-display)",
                 fontSize:"clamp(4rem,10vw,8rem)",
@@ -937,7 +938,7 @@ function Quiz() {
                   : score >= 7
                   ? "Khá - nắm được các luận điểm chính. Ôn lại 2-3 phần chưa chắc, đặc biệt phần Thuật ngữ."
                   : score >= 4
-                  ? "Trung bình - quay lại phần Lý thuyết và Thuật ngữ để củng cố nền tảng."
+                  ? "Trung bình - quay lại phần Lý luận và Thuật ngữ để củng cố nền tảng."
                   : "Cần ôn lại nghiêm túc - đọc kỹ giáo trình từ phần Lý thuyết trước khi thuyết trình."}
               </p>
               <button onClick={restart} style={{
@@ -1059,7 +1060,7 @@ function Quiz() {
       </div>
       <SectionMargin
         num="04 / 06"
-        vertical="Ôn tập tương tác"
+        vertical="Ôn tập"
         note="De omnibus dubitandum est. - Hoài nghi mọi điều."
         noteCite="Motto của K. Marx"
       />
@@ -1375,7 +1376,7 @@ function Glossary() {
       </Rev>
       <Rev delay={1}>
         <h2 className="h2" style={{ marginTop: "var(--space-stack-md)" }}>
-          Các thuật ngữ
+          Sổ tay thuật ngữ
         </h2>
       </Rev>
 
@@ -1496,7 +1497,7 @@ const REFERENCES = [
       {
         author: "Lumen Studio",
         title: "Lumen Artspace: Heritage In Art",
-        note: "Awwwards Honorable Mention 2025 - Thiết kế website truyền cảm hứng về vẻ đẹp và sự phong phú của nghệ thuật Việt Nam",
+        note: "Awwwards Honorable Mention 2025 - Tham khảo cấu trúc",
         url: "https://www.lumenartspace.com/",
       },
     ],
@@ -1507,7 +1508,7 @@ function References() {
   return (
     <section id="references" className="section-narrow section-border-t">
       <Rev>
-        <Label>(Phụ lục: Tài liệu tham khảo)</Label>
+        <Label>Phụ lục: Tài liệu tham khảo</Label>
       </Rev>
       <Rev delay={1}>
         <h2 className="h2" style={{ marginTop: "var(--space-stack-md)" }}>
@@ -1560,7 +1561,7 @@ function References() {
 function Footer() {
   return (
     <footer className="footer">
-      <Label>(Cam kết liêm chính học thuật)</Label>
+      <Label>Cam kết liêm chính học thuật</Label>
       <p className="footer-body">
         Nhóm cam kết AI chỉ đóng vai trò hỗ trợ. Toàn bộ luận điểm học
         thuật đã được kiểm chứng bằng Giáo trình Triết học Mác-Lênin
