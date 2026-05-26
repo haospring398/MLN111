@@ -267,7 +267,7 @@ function Nav({ showPrep }) {
           <span>26</span>
         </div>
         <div className="nav-right">
-          <button className="pill-btn">MLN111</button>
+          <button className="pill-btn">Group 7</button>
           <div className="arrow-btn">↘</div>
           <button
             className="nav-burger"
@@ -319,7 +319,7 @@ function Hero() {
         <img src="/img/book-notes.jpg" alt="" loading="lazy" decoding="async" />
       </div>
 
-      <span className="hero-watermark" aria-hidden="true">NHẬN THỨC</span>
+      <span className="hero-watermark" aria-hidden="true">DE OMNIBUS DUBITANDUM</span>
 
       <div className="hero-portrait hero-portrait-cutout">
         <img src="/img/socrates.png" alt="" loading="eager" decoding="async" />
@@ -358,7 +358,7 @@ function CQSection() {
     <section className="section-border-b cq-section">
       <div className="cq-main">
         <Rev>
-          <Label>(Câu hỏi chủ đề)</Label>
+          <Label>Câu hỏi chủ đề</Label>
         </Rev>
         <Rev delay={1}>
           <h2 className="h2" style={{ marginTop: "var(--space-stack-md)" }}>
@@ -396,11 +396,11 @@ function TheorySection() {
   return (
     <section id="theory" className="section-narrow">
       <Rev>
-        <Label>(Phần 01 · Lý thuyết)</Label>
+        <Label>Phần 01 - Lý thuyết</Label>
       </Rev>
       <Rev delay={1}>
         <h2 className="h2" style={{ marginTop: "var(--space-stack-md)", marginBottom: "var(--space-stack-lg)" }}>
-          Thực tiễn <Dash /> <i>ba vai trò cốt lõi</i>
+          Thực tiễn - 3 vai trò cốt lõi
         </h2>
       </Rev>
 
@@ -464,7 +464,6 @@ function TheorySection() {
 
       <Rev delay={2}>
         <CrossLink
-          prompt="Lý thuyết đã rõ. Tiếp theo —"
           links={[
             { label: "Xem dẫn chứng thực tế", target: "stats" },
             { label: "Làm quiz kiểm tra", target: "quiz" },
@@ -493,7 +492,7 @@ function StatsSection() {
 
       <div className="stats-inner">
         <Rev>
-          <Label>(Phần 02 · Gắn kết thực tiễn)</Label>
+          <Label>Phần 02 - Gắn kết thực tiễn</Label>
         </Rev>
 
         <hr className="hr-line" />
@@ -505,7 +504,7 @@ function StatsSection() {
               <span className="label-small">Doanh nghiệp</span>
               <p className="stat-body">
                 đánh giá cao kỹ năng mềm vào tiêu chí quyết định tuyển
-                dụng — bao gồm: thích ứng linh hoạt, làm việc nhóm,
+                dụng - bao gồm: thích ứng linh hoạt, làm việc nhóm,
                 giao tiếp và kỷ luật lao động
               </p>
               <a
@@ -532,7 +531,7 @@ function StatsSection() {
                 Công nghệ đạt 85–95%
               </p>
               <a
-                href="https://moet.gov.vn/giaoducquocdan/giao-duc-dai-hoc/Pages/Default.aspx?ItemID=9705"
+                href="https://moet.gov.vn/giaoducquocdan/giao-duc-dai-hoc/Pages/Default.aspx%3FItemID=9705"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="stat-source stat-source-link"
@@ -613,18 +612,18 @@ function CompareSection() {
     },
     {
       tag: "Nhận thức Hiệu quả",
-      school: "Điểm số, học bổng, thành tích — đo bằng thang đánh giá chuẩn hóa.",
+      school: "Điểm số, học bổng, thành tích - đo bằng thang đánh giá chuẩn hóa.",
       work: "Năng suất lao động, giải quyết vấn đề, giá trị thực tiễn tạo ra cho tổ chức và xã hội.",
     },
   ]
   return (
     <section id="compare" className="section-narrow">
       <Rev>
-        <Label>(Phần 03 · Phân tích so sánh)</Label>
+        <Label>Phần 03 - Phân tích so sánh</Label>
       </Rev>
       <Rev delay={1}>
         <h2 className="h2" style={{ marginTop: "var(--space-stack-md)" }}>
-          Nhận thức <Dash /> <i>Đúng · Đủ · Hiệu quả</i>
+          Nhận thức <Dash /> <i>Đúng - Đủ - Hiệu quả</i>
         </h2>
       </Rev>
 
@@ -691,14 +690,14 @@ const QUIZ = [
     ],
     ans: 1,
     ex:
-      "Doanh nghiệp đòi hỏi không chỉ lý thuyết mà còn khả năng hành động, giao tiếp, hợp tác — không đo được bằng điểm số.",
+      "Doanh nghiệp đòi hỏi không chỉ lý thuyết mà còn khả năng hành động, giao tiếp, hợp tác. Không đo được bằng điểm số.",
   },
   {
     q: "Ph. Ăngghen khẳng định chân lý được xác định bằng cách nào?",
     opts: [
       "Bằng suy luận logic thuần túy",
       "Bằng đồng thuận của đa số nhà khoa học",
-      "Bằng kết quả hoạt động thực tiễn — tự làm ra hiện tượng đó",
+      "Bằng kết quả hoạt động thực tiễn - tự làm ra hiện tượng đó",
       "Bằng quyền uy của các triết gia kinh điển",
     ],
     ans: 2,
@@ -722,7 +721,7 @@ const QUIZ = [
     opts: [
       "Kiến thức học thuật là yếu tố quyết định",
       "Khả năng hành động quan trọng hơn, kiến thức không cần",
-      "Hai yếu tố bổ sung — kiến thức nền tảng, hành động tạo giá trị",
+      "Hai yếu tố bổ sung - kiến thức nền tảng, hành động tạo giá trị",
       "Hai yếu tố hoàn toàn độc lập",
     ],
     ans: 2,
@@ -751,14 +750,14 @@ const QUIZ = [
     ],
     ans: 1,
     ex:
-      "Câu nói nổi tiếng của Lê-nin trong 'Bút ký triết học' — vạch ra ba giai đoạn: cảm tính (trực quan sinh động) → lý tính (tư duy trừu tượng) → thực tiễn để kiểm nghiệm.",
+      "Câu nói nổi tiếng của Lê-nin trong 'Bút ký triết học' - vạch ra ba giai đoạn: cảm tính (trực quan sinh động) → lý tính (tư duy trừu tượng) → thực tiễn để kiểm nghiệm.",
   },
   {
     q: "Sinh viên thuộc lòng định nghĩa nhưng không biết áp dụng vào thực tế là biểu hiện của lỗi nhận thức nào?",
     opts: [
       "Chủ nghĩa kinh nghiệm",
       "Chủ nghĩa duy tâm",
-      "Bệnh giáo điều — tuyệt đối hóa lý luận, tách rời thực tiễn",
+      "Bệnh giáo điều - tuyệt đối hóa lý luận, tách rời thực tiễn",
       "Chủ nghĩa thực dụng",
     ],
     ans: 2,
@@ -775,7 +774,7 @@ const QUIZ = [
     ],
     ans: 1,
     ex:
-      "C. Mác trong 'Luận cương về Phơ-bách' — luận cương số 2: chỉ thực tiễn mới chứng minh được tư duy có đạt chân lý hay không. Đây là một trong những luận điểm nền tảng của triết học Mác về vai trò thực tiễn.",
+      "C. Mác trong 'Luận cương về Phơ-bách' - luận cương số 2: chỉ thực tiễn mới chứng minh được tư duy có đạt chân lý hay không. Đây là một trong những luận điểm nền tảng của triết học Mác về vai trò thực tiễn.",
   },
   {
     q: "Đặc điểm nào KHÔNG thuộc về giai đoạn nhận thức cảm tính?",
@@ -787,7 +786,7 @@ const QUIZ = [
     ],
     ans: 2,
     ex:
-      "Nhận thức cảm tính chưa phân biệt được bản chất / hiện tượng, nguyên nhân / kết quả — đó là việc của nhận thức lý tính (tư duy trừu tượng). Cảm tính chỉ phản ánh BỀ NGOÀI của sự vật, lý tính mới đi sâu vào BẢN CHẤT.",
+      "Nhận thức cảm tính chưa phân biệt được bản chất / hiện tượng, nguyên nhân / kết quả - đó là việc của nhận thức lý tính (tư duy trừu tượng). Cảm tính chỉ phản ánh BỀ NGOÀI của sự vật, lý tính mới đi sâu vào BẢN CHẤT.",
   },
   {
     q: "Trong thời đại AI và mạng xã hội, vì sao tính KHÁCH QUAN của chân lý vẫn được khẳng định?",
@@ -799,7 +798,7 @@ const QUIZ = [
     ],
     ans: 1,
     ex:
-      "Chân lý có tính khách quan vì NỘI DUNG phản ánh là hiện thực khách quan — không phụ thuộc số đông, không phụ thuộc uy tín. Đây là cơ sở triết học để phản bác fake news, deepfake, và 'chân lý đa số' trong thời AI.",
+      "Chân lý có tính khách quan vì NỘI DUNG phản ánh là hiện thực khách quan - không phụ thuộc số đông, không phụ thuộc uy tín. Đây là cơ sở triết học để phản bác fake news, deepfake, và 'chân lý đa số' trong thời AI.",
   },
   {
     q: "Câu nói nào KHÔNG phù hợp với quan điểm của triết học Mác-Lênin về mối quan hệ giữa nhận thức và thực tiễn?",
@@ -811,7 +810,7 @@ const QUIZ = [
     ],
     ans: 2,
     ex:
-      "Câu C tách rời tri thức khỏi thực tiễn — vi phạm nguyên tắc cơ bản của nhận thức luận Mác-Lênin. Đây cũng chính là câu hỏi đặt vấn đề mở đầu của bài: 'Cứ học giỏi thì sẽ thành công?' — đáp án là KHÔNG nếu thiếu thực tiễn.",
+      "Câu C tách rời tri thức khỏi thực tiễn - vi phạm nguyên tắc cơ bản của nhận thức luận Mác-Lênin. Đây cũng chính là câu hỏi đặt vấn đề mở đầu của bài: 'Cứ học giỏi thì sẽ thành công?' - đáp án là KHÔNG nếu thiếu thực tiễn.",
   },
 ]
 
@@ -881,7 +880,7 @@ function Quiz() {
     <section id="quiz" className="section-border-t section-with-margin">
       <div className="section-main">
       <div style={{ maxWidth: 640 }}>
-        <Rev><Label>(Phần 04 · Ôn tập tương tác)</Label></Rev>
+        <Rev><Label>Phần 04 - Ôn tập tương tác</Label></Rev>
         <Rev delay={0.1}>
           <h2 style={{
             fontFamily:"var(--font-display)",
@@ -891,7 +890,7 @@ function Quiz() {
             letterSpacing:"var(--tracking-h2)",
             marginBottom:"var(--space-stack-lg)",
           }}>
-            Kiểm tra <Dash /> <i style={{fontStyle:"italic"}}>hiểu bài</i>
+            Kiểm tra hiểu bài
           </h2>
         </Rev>
 
@@ -932,14 +931,14 @@ function Quiz() {
                 marginBottom:"2rem",
               }}>
                 {score === QUIZ.length
-                  ? "Xuất sắc — nắm vững toàn bộ nhận thức luận Mác-Lênin về mối quan hệ nhận thức ↔ thực tiễn."
+                  ? "Xuất sắc - nắm vững toàn bộ nhận thức luận Mác-Lênin về mối quan hệ nhận thức ↔ thực tiễn."
                   : score >= 10
-                  ? "Rất tốt — chỉ thiếu vài chi tiết. Sẵn sàng cho phản biện."
+                  ? "Rất tốt - chỉ thiếu vài chi tiết. Sẵn sàng cho phản biện."
                   : score >= 7
-                  ? "Khá — nắm được các luận điểm chính. Ôn lại 2-3 phần chưa chắc, đặc biệt phần Thuật ngữ."
+                  ? "Khá - nắm được các luận điểm chính. Ôn lại 2-3 phần chưa chắc, đặc biệt phần Thuật ngữ."
                   : score >= 4
-                  ? "Trung bình — quay lại phần Lý thuyết và Thuật ngữ để củng cố nền tảng."
-                  : "Cần ôn lại nghiêm túc — đọc kỹ giáo trình từ phần Lý thuyết trước khi thuyết trình."}
+                  ? "Trung bình - quay lại phần Lý thuyết và Thuật ngữ để củng cố nền tảng."
+                  : "Cần ôn lại nghiêm túc - đọc kỹ giáo trình từ phần Lý thuyết trước khi thuyết trình."}
               </p>
               <button onClick={restart} style={{
                 fontFamily:"var(--font-ui)",
@@ -1046,13 +1045,13 @@ function Quiz() {
                   }}>
                     {q+1 >= QUIZ.length
                       ? "Xem kết quả →"
-                      : "Tiếp theo → (Enter)"}
+                      : "Tiếp theo"}
                   </button>
                 </div>
               </>
             )}
             <p className="quiz-hint">
-              Mẹo: bấm A · B · C · D để chọn
+              Bấm A · B · C · D để chọn
             </p>
           </div>
         )}
@@ -1061,7 +1060,7 @@ function Quiz() {
       <SectionMargin
         num="04 / 06"
         vertical="Ôn tập tương tác"
-        note="De omnibus dubitandum est. — Hoài nghi mọi điều."
+        note="De omnibus dubitandum est. - Hoài nghi mọi điều."
         noteCite="Motto của K. Marx"
       />
     </section>
@@ -1126,7 +1125,7 @@ function AISection() {
       n: "4.4 Sáng tạo",
       score: "✓",
       body:
-        "AI hỗ trợ quiz và website — không thay tư duy phân tích của nhóm.",
+        "AI hỗ trợ quiz và website - không thay tư duy phân tích của nhóm.",
     },
   ]
 
@@ -1134,11 +1133,11 @@ function AISection() {
     <section id="ai" className="section-border-t section-with-margin">
       <div className="section-main ai-main">
       <Rev>
-        <Label>(Phụ lục · Minh bạch AI)</Label>
+        <Label>Phụ lục: AI</Label>
       </Rev>
       <Rev delay={1}>
         <h2 className="h2" style={{ marginTop: "var(--space-stack-md)" }}>
-          AI Usage <Dash /> <i>có trách nhiệm</i>
+          AI Usage
         </h2>
       </Rev>
 
@@ -1185,7 +1184,7 @@ function AISection() {
       </div>
       <SectionMargin
         num="06 / 06"
-        vertical="Minh bạch AI · Tiêu chí 4"
+        vertical="Minh bạch AI"
         note="Công cụ giải phóng đôi tay, không giải phóng trách nhiệm."
         noteCite="Nguyên tắc liêm chính học thuật"
       />
@@ -1201,7 +1200,7 @@ const REBUTTAL = [
   {
     warn: true,
     q: "Theo Mác-Lênin, 'trải nghiệm cá nhân' có đồng nhất với phạm trù 'thực tiễn' không?",
-    a: "Không. Thực tiễn là hoạt động vật chất có mục đích, mang tính lịch sử-xã hội nhằm cải tạo hiện thực — khách quan, mang tính cộng đồng. Trải nghiệm cá nhân là kết quả phản ánh chủ quan, có thể đúng hoặc sai. Tuyệt đối hóa kinh nghiệm cảm tính chính là chủ nghĩa duy nghiệm mà Mác-Lênin phê phán.",
+    a: "Không. Thực tiễn là hoạt động vật chất có mục đích, mang tính lịch sử-xã hội nhằm cải tạo hiện thực - khách quan, mang tính cộng đồng. Trải nghiệm cá nhân là kết quả phản ánh chủ quan, có thể đúng hoặc sai. Tuyệt đối hóa kinh nghiệm cảm tính chính là chủ nghĩa duy nghiệm mà Mác-Lênin phê phán.",
   },
   {
     q: "Câu trích dẫn của Ăngghen về 'vật tự nó của Cantơ' lấy từ tác phẩm nào?",
@@ -1210,21 +1209,21 @@ const REBUTTAL = [
   {
     warn: true,
     q: "Luận điểm 'thực tiễn là tiêu chuẩn chân lý' khác chủ nghĩa thực dụng W. James thế nào?",
-    a: "Thực dụng: chân lý = lợi ích chủ quan cá nhân. Mác-Lênin: thực tiễn là hoạt động vật chất khách quan, mang tính lịch sử-xã hội — đo sự phù hợp giữa tư duy và hiện thực khách quan, không phải lợi ích cá nhân.",
+    a: "Thực dụng: chân lý = lợi ích chủ quan cá nhân. Mác-Lênin: thực tiễn là hoạt động vật chất khách quan, mang tính lịch sử-xã hội - đo sự phù hợp giữa tư duy và hiện thực khách quan, không phải lợi ích cá nhân.",
   },
   {
     warn: true,
-    q: "Tiêu chuẩn thực tiễn vừa tuyệt đối vừa tương đối — giải thích?",
+    q: "Tiêu chuẩn thực tiễn vừa tuyệt đối vừa tương đối - giải thích?",
     a: "Tuyệt đối: ngoài thực tiễn không còn tiêu chuẩn nào khác. Tương đối: thực tiễn luôn vận động, mỗi giai đoạn lịch sử chỉ kiểm chứng được một phần chân lý. Tuyệt đối ngăn hoài nghi; tương đối ngăn giáo điều.",
   },
   {
     q: "Sinh viên đi thực tập marketing thuộc hình thức thực tiễn nào?",
-    a: "Chủ yếu là lao động sản xuất — hình thức cơ bản nhất, quyết định. Có thể có yếu tố thực nghiệm khoa học nếu nghiên cứu thị trường. Lao động sản xuất tạo ra của cải vật chất, là cơ sở của hai hình thức còn lại.",
+    a: "Chủ yếu là lao động sản xuất - hình thức cơ bản nhất, quyết định. Có thể có yếu tố thực nghiệm khoa học nếu nghiên cứu thị trường. Lao động sản xuất tạo ra của cải vật chất, là cơ sở của hai hình thức còn lại.",
   },
   {
     warn: true,
-    q: "Bài dùng Mác-Lênin để biện hộ 'thăng tiến cá nhân' trong môi trường tư bản — có mâu thuẫn không?",
-    a: "Có giới hạn. Về nhận thức luận: tri thức có giá trị khi kiểm nghiệm qua cải tạo hiện thực — đúng bất kể chủ thể. Tinh thần Mác-xít đầy đủ: thành công bền vững phải gắn với đóng góp cho lao động xã hội và lợi ích cộng đồng — điểm bài chưa phát triển sâu, xin tiếp thu.",
+    q: "Bài dùng Mác-Lênin để biện hộ 'thăng tiến cá nhân' trong môi trường tư bản - có mâu thuẫn không?",
+    a: "Có giới hạn. Về nhận thức luận: tri thức có giá trị khi kiểm nghiệm qua cải tạo hiện thực - đúng bất kể chủ thể. Tinh thần Mác-xít đầy đủ: thành công bền vững phải gắn với đóng góp cho lao động xã hội và lợi ích cộng đồng - điểm bài chưa phát triển sâu, xin tiếp thu.",
   },
   {
     q: "Nhận thức có tác động trở lại thực tiễn không? Lê-nin nói gì?",
@@ -1236,11 +1235,11 @@ const REBUTTAL = [
   },
   {
     q: "Tính cụ thể của chân lý là gì?",
-    a: "Lê-nin: 'Không có chân lý trừu tượng, chân lý luôn luôn cụ thể.' Chân lý gắn với điều kiện không gian, thời gian, hoàn cảnh lịch sử cụ thể. Áp dụng máy móc cho mọi hoàn cảnh là vi phạm tính cụ thể — dẫn đến giáo điều.",
+    a: "Lê-nin: 'Không có chân lý trừu tượng, chân lý luôn luôn cụ thể.' Chân lý gắn với điều kiện không gian, thời gian, hoàn cảnh lịch sử cụ thể. Áp dụng máy móc cho mọi hoàn cảnh là vi phạm tính cụ thể - dẫn đến giáo điều.",
   },
   {
     q: "'Biết' và 'hiểu' có khác nhau theo Mác-Lênin không?",
-    a: "'Biết' dừng ở nhận thức cảm tính, ghi nhớ hiện tượng. 'Hiểu' thuộc nhận thức lý tính — nắm bản chất, quy luật, mối liên hệ tất yếu. 'Vận dụng đúng' đòi hỏi đã 'hiểu' rồi mới quay về thực tiễn được.",
+    a: "'Biết' dừng ở nhận thức cảm tính, ghi nhớ hiện tượng. 'Hiểu' thuộc nhận thức lý tính - nắm bản chất, quy luật, mối liên hệ tất yếu. 'Vận dụng đúng' đòi hỏi đã 'hiểu' rồi mới quay về thực tiễn được.",
   },
 ]
 
@@ -1322,12 +1321,12 @@ const GLOSSARY = [
   },
   {
     term: "Nhận thức cảm tính",
-    def: "Giai đoạn đầu — trực quan sinh động — phản ánh trực tiếp qua cảm giác, tri giác, biểu tượng.",
+    def: "Giai đoạn đầu - trực quan sinh động - phản ánh trực tiếp qua cảm giác, tri giác, biểu tượng.",
     note: "Gắn liền trực tiếp với thực tiễn. Đem lại hình ảnh trực tiếp về sự vật nhưng chưa phân biệt được cái riêng và cái chung, bản chất và hiện tượng, nguyên nhân và kết quả.",
   },
   {
     term: "Nhận thức lý tính",
-    def: "Giai đoạn cao — tư duy trừu tượng — phản ánh gián tiếp, khái quát qua khái niệm, phán đoán, suy lý.",
+    def: "Giai đoạn cao - tư duy trừu tượng - phản ánh gián tiếp, khái quát qua khái niệm, phán đoán, suy lý.",
     note: "Phản ánh sự vật trong tính tất yếu, chỉnh thể toàn diện, đi sâu vào bản chất. Suy lý giúp tư duy đi từ cái đã biết đến cái chưa biết. Luôn hàm chứa nguy cơ xa rời hiện thực nên phải được kiểm tra bởi thực tiễn.",
   },
   {
@@ -1342,23 +1341,23 @@ const GLOSSARY = [
   },
   {
     term: "Chân lý cụ thể",
-    def: "\"Không có chân lý trừu tượng, chung chung, chân lý luôn là cụ thể\" — V.I. Lê-nin.",
+    def: "\"Không có chân lý trừu tượng, chung chung, chân lý luôn là cụ thể\" - V.I. Lê-nin.",
     note: "Chân lý gắn với điều kiện không gian, thời gian, hoàn cảnh lịch sử cụ thể. Đòi hỏi chủ thể phải có quan điểm lịch sử cụ thể, luôn sáng tạo trong hoạt động thực tiễn.",
   },
   {
     term: "Ba hình thức thực tiễn",
     def: "Hoạt động sản xuất vật chất · Hoạt động chính trị - xã hội · Thực nghiệm khoa học.",
-    note: "Hoạt động sản xuất vật chất là hình thức có sớm nhất, cơ bản nhất và quan trọng nhất — đóng vai trò quyết định đối với hai hình thức còn lại.",
+    note: "Hoạt động sản xuất vật chất là hình thức có sớm nhất, cơ bản nhất và quan trọng nhất - đóng vai trò quyết định đối với hai hình thức còn lại.",
   },
   {
     term: "Biện chứng",
-    def: "Phương pháp nhận thức đối tượng trong mối liên hệ phổ biến và trạng thái vận động, phát triển — đối lập với siêu hình.",
+    def: "Phương pháp nhận thức đối tượng trong mối liên hệ phổ biến và trạng thái vận động, phát triển - đối lập với siêu hình.",
     note: "Chia thành biện chứng khách quan (của bản thân thế giới) và biện chứng chủ quan (phản ánh biện chứng khách quan vào tư duy con người). Phương pháp siêu hình nhận thức đối tượng ở trạng thái cô lập, tĩnh tại.",
   },
   {
     term: "Vật tự nó (Kant)",
-    def: "Khái niệm của I. Kant về thực tại độc lập với nhận thức — cho rằng con người không thể có tri thức đúng đắn về thực tại nằm ngoài kinh nghiệm.",
-    note: "Ph. Ăngghen phản bác: thông qua thực tiễn (\"tự chúng ta làm ra hiện tượng ấy\"), \"vật tự nó\" sẽ bị biến thành \"vật cho ta\" — khẳng định khả năng nhận thức vô tận của con người.",
+    def: "Khái niệm của I. Kant về thực tại độc lập với nhận thức - cho rằng con người không thể có tri thức đúng đắn về thực tại nằm ngoài kinh nghiệm.",
+    note: "Ph. Ăngghen phản bác: thông qua thực tiễn (\"tự chúng ta làm ra hiện tượng ấy\"), \"vật tự nó\" sẽ bị biến thành \"vật cho ta\" - khẳng định khả năng nhận thức vô tận của con người.",
   },
 ]
 
@@ -1372,11 +1371,11 @@ function Glossary() {
   return (
     <section id="glossary" className="section-narrow section-border-t">
       <Rev>
-        <Label>(Phụ lục · Thuật ngữ triết học)</Label>
+        <Label>Phụ lục: Thuật ngữ triết học</Label>
       </Rev>
       <Rev delay={1}>
         <h2 className="h2" style={{ marginTop: "var(--space-stack-md)" }}>
-          Thuật ngữ <Dash /> <i>then chốt</i>
+          Các thuật ngữ
         </h2>
       </Rev>
 
@@ -1413,7 +1412,7 @@ function Glossary() {
                   <div className="glossary-body-inner">
                     <p className="glossary-def">{g.def}</p>
                     <p className="glossary-note">
-                      <span className="glossary-note-label">Bổ sung —</span> {g.note}
+                      <span className="glossary-note-label">Bổ sung: </span> {g.note}
                     </p>
                   </div>
                 </div>
@@ -1439,6 +1438,7 @@ const REFERENCES = [
         title: "Giáo trình Triết học Mác-Lênin (Dành cho bậc đại học hệ không chuyên lý luận chính trị)",
         publisher: "NXB Chính trị Quốc gia Sự thật",
         year: "2021",
+        url: "https://drive.google.com/file/d/1lc-4kStF8cB9jEn0l0bmoPIOl-meXUWT/view",
       },
     ],
   },
@@ -1484,9 +1484,20 @@ const REFERENCES = [
       },
       {
         author: "Bộ Giáo dục và Đào tạo",
-        title: "Hội nghị Giáo dục Đại học — Số liệu việc làm sinh viên tốt nghiệp",
+        title: "Hội nghị Giáo dục Đại học - Số liệu việc làm sinh viên tốt nghiệp",
         note: "Tháng 8-9/2024",
-        url: "https://moet.gov.vn/giaoducquocdan/giao-duc-dai-hoc/Pages/Default.aspx?ItemID=9705",
+        url: "https://moet.gov.vn/giaoducquocdan/giao-duc-dai-hoc/Pages/Default.aspx%3FItemID=9705",
+      },
+    ],
+  },
+  {
+    category: "Thiết kế mẫu",
+    items: [
+      {
+        author: "Lumen Studio",
+        title: "Lumen Artspace: Heritage In Art",
+        note: "Awwwards Honorable Mention 2025 - Thiết kế website truyền cảm hứng về vẻ đẹp và sự phong phú của nghệ thuật Việt Nam",
+        url: "https://www.lumenartspace.com/",
       },
     ],
   },
@@ -1496,11 +1507,11 @@ function References() {
   return (
     <section id="references" className="section-narrow section-border-t">
       <Rev>
-        <Label>(Phụ lục · Tài liệu tham khảo)</Label>
+        <Label>(Phụ lục: Tài liệu tham khảo)</Label>
       </Rev>
       <Rev delay={1}>
         <h2 className="h2" style={{ marginTop: "var(--space-stack-md)" }}>
-          Tài liệu <Dash /> <i>tham khảo</i>
+          Tài liệu tham khảo
         </h2>
       </Rev>
 
