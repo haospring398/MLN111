@@ -268,7 +268,6 @@ function Nav({ showPrep }) {
         </div>
         <div className="nav-right">
           <button className="pill-btn">Group 7</button>
-          <div className="arrow-btn">↘</div>
           <button
             className="nav-burger"
             aria-label={menuOpen ? "Đóng menu" : "Mở menu"}
@@ -508,12 +507,12 @@ function StatsSection() {
                 giao tiếp và kỷ luật lao động
               </p>
               <a
-                href="https://nhandan.vn/tao-nguon-nhan-luc-phuc-vu-chuyen-doi-so-post800037.html"
+                href="https://nhandan.vn/chuan-hoa-ky-nang-lao-dong-trong-ky-nguyen-so-post731660.html"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="stat-source stat-source-link"
               >
-                Báo Nhân Dân · Chuyên đề Nguồn nhân lực 2024 · nhandan.vn ↗
+                Báo Nhân Dân · Chuyên đề Nguồn nhân lực 2022 · nhandan.vn ↗
               </a>
             </div>
           </div>
@@ -531,13 +530,12 @@ function StatsSection() {
                 Công nghệ đạt 85–95%
               </p>
               <a
-                href="https://moet.gov.vn/giaoducquocdan/giao-duc-dai-hoc/Pages/Default.aspx%3FItemID=9705"
+                href="https://tuyensinh.moet.gov.vn/ts/van-ban/thong-tu-so-10-2023-tt-bgddt-cua-bo-giao-duc-va-dao-tao-sua-doi-bo-sung-mot-so-dieu-cua-thong-tu-so---dc8a8f89-419c-4fb9-8d77-e31f016aaebc"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="stat-source stat-source-link"
               >
-                Bộ Giáo dục và Đào tạo · Hội nghị GD Đại học tháng
-                8-9/2024 · moet.gov.vn ↗
+                Thông tư số 10/2023/TT-BGDĐT của Bộ GD&DT  moet.gov.vn ↗
               </a>
             </div>
           </div>
@@ -657,8 +655,8 @@ function CompareSection() {
       ))}
 
       <Rev delay={1}>
-        <Pull text='"Các nhà triết học cho đến nay mới chỉ giải thích thế giới bằng nhiều cách khác nhau; vấn đề là phải cải tạo thế giới."'
-              cite="K. Marx · Luận cương về Phơ-bách (1845), luận cương 11" />
+        <Pull text='"Các nhà triết học đã chỉ giải thích thế giới bằng nhiều cách khác nhau, song vấn đề là cải tạo thế giới"'
+              cite="C. Mác và Ph. Ăngghen: Toàn tập, Sđd, t.3, tr.12." />
       </Rev>
     </section>
   )
@@ -848,13 +846,7 @@ function Quiz() {
     if (done) return
     const onKey = (e) => {
       if (e.target.tagName === "INPUT") return
-      const k = e.key.toLowerCase()
-      if (["a","b","c","d"].includes(k) && sel === null) {
-        const idx = k.charCodeAt(0) - 97
-        if (idx < cur.opts.length) pick(idx)
-      } else if (e.key === "Enter" && sel !== null) {
-        next()
-      } else if (e.key === "ArrowLeft" && q > 0 && sel !== null) {
+      if (e.key === "ArrowLeft" && q > 0 && sel !== null) {
         back()
       }
     }
@@ -1051,9 +1043,6 @@ function Quiz() {
                 </div>
               </>
             )}
-            <p className="quiz-hint">
-              Bấm A · B · C · D để chọn
-            </p>
           </div>
         )}
       </div>
@@ -1078,9 +1067,9 @@ function AISection() {
       tool: "Claude",
       purpose: "Phân tích lý thuyết",
       prompt:
-        "Phân tích mối quan hệ giữa nhận thức và thực tiễn theo triết học Mác-Lênin. Trình bày 3 vai trò của thực tiễn đối với nhận thức, có trích dẫn từ giáo trình LLCT chính thống.",
+        "Phân tích mối quan hệ giữa nhận thức và thực tiễn theo triết học Mác-Lênin. Trình bày 3 vai trò của thực tiễn đối với nhận thức, có trích dẫn từ giáo trình",
       edit:
-        "Đối chiếu LLCT, chỉnh ngữ cảnh VN, bổ sung ví dụ sinh viên",
+        "Đối chiếu Giáo trình, chỉnh ngữ cảnh VN, bổ sung ví dụ sinh viên",
       link: 
         "https://claude.ai/share/a0eb4028-448a-4447-bc3f-8fe8780ed65c",
     },
@@ -1089,7 +1078,7 @@ function AISection() {
       purpose: "Tạo quiz ôn tập",
       prompt:
         "Tạo 5 câu trắc nghiệm về mối quan hệ nhận thức và thực tiễn theo Mác-Lênin. Độ khó tăng dần, mỗi câu có 1 đáp án đúng và 3 đáp án nhiễu hợp lý. Có giải thích ngắn cho đáp án đúng.",
-      edit: "Kiểm tra độ chính xác, điều chỉnh đáp án, thêm giải thích",
+      edit: "Kiểm tra độ chính xác, lọc và điều chỉnh câu hỏi đáp án, thêm giải thích",
       link: 
         "https://claude.ai/share/37628787-24d0-41c7-b76f-2fad9564af43",
     },
@@ -1098,7 +1087,7 @@ function AISection() {
       purpose: "Số liệu thực tiễn",
       prompt:
         "Số liệu 2024-2025 về việc làm và kỹ năng sinh viên VN",
-      edit: "Kiểm chứng nguồn molisa/moet/nhandan, ghi rõ trích dẫn",
+      edit: "Kiểm chứng nguồn talieuvankien/moet/nhandan, ghi rõ trích dẫn",
       link: 
         "https://gemini.google.com/share/bfe37c3007e4",
     },
@@ -1114,7 +1103,7 @@ function AISection() {
       n: "4.2 Trách nhiệm",
       score: "✓",
       body:
-        "Mọi luận điểm AI đối chiếu giáo trình LLCT và nguồn chính thống.",
+        "Mọi luận điểm AI đối chiếu giáo trình và nguồn chính thống.",
     },
     {
       n: "4.3 Liêm chính",
@@ -1186,8 +1175,8 @@ function AISection() {
       <SectionMargin
         num="06 / 06"
         vertical="Minh bạch AI"
-        note="Công cụ giải phóng đôi tay, không giải phóng trách nhiệm."
-        noteCite="Nguyên tắc liêm chính học thuật"
+        note="We shape our tools and thereafter our tools shape us."
+        noteCite="John Culkin"
       />
     </section>
   )
@@ -1440,26 +1429,6 @@ const REFERENCES = [
         publisher: "NXB Chính trị Quốc gia Sự thật",
         year: "2021",
         url: "https://drive.google.com/file/d/1lc-4kStF8cB9jEn0l0bmoPIOl-meXUWT/view",
-      },
-    ],
-  },
-  {
-    category: "Tác phẩm kinh điển",
-    items: [
-      {
-        author: "Ph. Ăngghen",
-        title: "Biện chứng của tự nhiên",
-        note: "1873-1883",
-      },
-      {
-        author: "Ph. Ăngghen",
-        title: "Lút-vích Phơ-bách và sự cáo chung của triết học cổ điển Đức",
-        note: "1886",
-      },
-      {
-        author: "V.I. Lê-nin",
-        title: "Bút ký triết học",
-        note: "Trích dẫn về chân lý cụ thể và quan hệ biện chứng giữa lý luận và thực tiễn",
       },
     ],
   },
