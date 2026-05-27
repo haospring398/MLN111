@@ -399,7 +399,7 @@ function TheorySection() {
       </Rev>
       <Rev delay={1}>
         <h2 className="h2" style={{ marginTop: "var(--space-stack-md)", marginBottom: "var(--space-stack-lg)" }}>
-          Thực tiễn - 3 vai trò cốt lõi
+          3 vai trò cốt lõi của Thực tiễn
         </h2>
       </Rev>
 
@@ -551,8 +551,7 @@ function StatsSection() {
         <Rev delay={1}>
           <div className="stat-row">
             <span className="stat-num-quote">
-              "Học đi đôi với hành,<br />
-              lý luận gắn liền với thực tiễn."
+              "Gắn kết tổng kết thực tiễn <br />với nghiên cứu lý luận"
             </span>
             <div className="stat-meta">
               <a
@@ -621,7 +620,7 @@ function CompareSection() {
       </Rev>
       <Rev delay={1}>
         <h2 className="h2" style={{ marginTop: "var(--space-stack-md)" }}>
-          Nhận thức <Dash /> <i>Đúng - Đủ - Hiệu quả</i>
+          Nhận thức <br></br><span style={{ whiteSpace: "nowrap" }}>Đúng - Đủ - Hiệu quả</span>
         </h2>
       </Rev>
 
@@ -883,7 +882,7 @@ function Quiz() {
             letterSpacing:"var(--tracking-h2)",
             marginBottom:"var(--space-stack-lg)",
           }}>
-            Kiểm tra hiểu bài
+            <span style={{ whiteSpace: "nowrap" }}>Kiểm tra hiểu bài</span>
           </h2>
         </Rev>
 
@@ -1067,9 +1066,9 @@ function AISection() {
       tool: "Claude",
       purpose: "Phân tích lý thuyết",
       prompt:
-        "Phân tích mối quan hệ giữa nhận thức và thực tiễn theo triết học Mác-Lênin. Trình bày 3 vai trò của thực tiễn đối với nhận thức, có trích dẫn từ giáo trình",
+        "Phân tích mối quan hệ giữa nhận thức và thực tiễn theo triết học Mác-Lênin. Trình bày 3 vai trò của thực tiễn đối với nhận thức, có trích dẫn từ giáo trình LLCT chính thống",
       edit:
-        "Đối chiếu Giáo trình, chỉnh ngữ cảnh VN, bổ sung ví dụ sinh viên",
+        "Đối chiếu Giáo trình, chỉnh ngữ cảnh VN, bổ sung",
       link: 
         "https://claude.ai/share/a0eb4028-448a-4447-bc3f-8fe8780ed65c",
     },
@@ -1078,7 +1077,7 @@ function AISection() {
       purpose: "Tạo quiz ôn tập",
       prompt:
         "Tạo 5 câu trắc nghiệm về mối quan hệ nhận thức và thực tiễn theo Mác-Lênin. Độ khó tăng dần, mỗi câu có 1 đáp án đúng và 3 đáp án nhiễu hợp lý. Có giải thích ngắn cho đáp án đúng.",
-      edit: "Kiểm tra độ chính xác, lọc và điều chỉnh câu hỏi đáp án, thêm giải thích",
+      edit: "Kiểm tra độ chính xác, lọc và điều chỉnh câu hỏi đáp án, thêm giải thích, mở rộng câu hỏi",
       link: 
         "https://claude.ai/share/37628787-24d0-41c7-b76f-2fad9564af43",
     },
@@ -1087,35 +1086,9 @@ function AISection() {
       purpose: "Số liệu thực tiễn",
       prompt:
         "Số liệu 2024-2025 về việc làm và kỹ năng sinh viên VN",
-      edit: "Kiểm chứng nguồn talieuvankien/moet/nhandan, ghi rõ trích dẫn",
+      edit: "Kiểm chứng nguồn talieuvankien/moet/nhandan, tổng hợp số liệu, ghi rõ trích dẫn",
       link: 
         "https://gemini.google.com/share/bfe37c3007e4",
-    },
-  ]
-
-  const checks = [
-    {
-      n: "4.1 Minh bạch",
-      score: "✓",
-      body: "Liệt kê đủ công cụ, mục đích, prompt và link chat.",
-    },
-    {
-      n: "4.2 Trách nhiệm",
-      score: "✓",
-      body:
-        "Mọi luận điểm AI đối chiếu giáo trình và nguồn chính thống.",
-    },
-    {
-      n: "4.3 Liêm chính",
-      score: "✓",
-      body:
-        "Cam kết văn bản. Phân định rõ AI output và phần nhóm chỉnh sửa.",
-    },
-    {
-      n: "4.4 Sáng tạo",
-      score: "✓",
-      body:
-        "AI hỗ trợ quiz và website - không thay tư duy phân tích của nhóm.",
     },
   ]
 
@@ -1158,19 +1131,6 @@ function AISection() {
         </div>
       </Rev>
 
-      <Rev delay={2}>
-        <div className="checklist">
-          {checks.map((c, i) => (
-            <div className="check-item" key={i}>
-              <div className="check-row">
-                <span className="check-label">{c.n}</span>
-                <span className="check-score">{c.score}</span>
-              </div>
-              <p className="check-body">{c.body}</p>
-            </div>
-          ))}
-        </div>
-      </Rev>
       </div>
       <SectionMargin
         num="06 / 06"
@@ -1454,9 +1414,9 @@ const REFERENCES = [
       },
       {
         author: "Bộ Giáo dục và Đào tạo",
-        title: "Hội nghị Giáo dục Đại học - Số liệu việc làm sinh viên tốt nghiệp",
-        note: "Tháng 8-9/2024",
-        url: "https://moet.gov.vn/giaoducquocdan/giao-duc-dai-hoc/Pages/Default.aspx%3FItemID=9705",
+        title: "Thông tư số 10/2023/TT-BGDĐT",
+        note: "28/04/2023",
+        url: "https://tuyensinh.moet.gov.vn/ts/van-ban/thong-tu-so-10-2023-tt-bgddt-cua-bo-giao-duc-va-dao-tao-sua-doi-bo-sung-mot-so-dieu-cua-thong-tu-so---dc8a8f89-419c-4fb9-8d77-e31f016aaebc",
       },
     ],
   },
